@@ -103,14 +103,16 @@
                 opacity: 0
             }], {
                 duration: 1000,
-                easing: "ease-in-out"
+                easing: "ease-in-out",
+                fill: "forwards"
             })
         } else {
             intro.animate([{
                 opacity: 1
             }], {
                 duration: 1000,
-                easing: "ease-in-out"
+                easing: "ease-in-out",
+                fill: "forwards"
             })
         }
 
@@ -195,7 +197,7 @@
         translate: -50% -50%;
         color: white;
 
-        @apply bg-gray-800 rounded-3xl flex-col flex justify-center p-5 gap-2;
+        @apply bg-gray-800 rounded-3xl flex-col flex justify-center p-3 gap-2;
         
         will-change: transform, opacity;
         transform: translate3d(var(--x), 0, calc(var(--z) + var(--oZ)));
