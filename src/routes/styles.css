@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    overflow-x: hidden;
+}
+
+body {
+    background: black;
+    color: white;
+}
+
+.card {
+    border-radius: 10px;
+    padding: 20px;
+    width: 350px;
+    background: rgb(26,26,26);
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    gap: 15px;
+    flex-direction: column;
+    top: 50vh;
+    left: 50vw;
+    translate: -50% -50%;
+    color: white;
+}
+  
+#wrapper {
+    @apply bg-gradient-to-b from-black to-purple-900;
+}
