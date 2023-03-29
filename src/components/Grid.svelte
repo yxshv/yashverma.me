@@ -15,11 +15,21 @@
                 <div class="horizontal-line" />
                 <div class="horizontal-line" />
                 <div class="horizontal-line" />
+                <div class="horizontal-line" /> 
                 <div class="horizontal-line" />
                 <div class="horizontal-line" />
                 <div class="horizontal-line" />
                 <div class="horizontal-line" />
                 <div class="horizontal-line" />
+                <div class="horizontal-line" />
+                <div class="horizontal-line" />
+                <div class="horizontal-line" />
+                <div class="horizontal-line" />
+                <div class="horizontal-line" />
+                <div class="horizontal-line" />
+                <div class="horizontal-line" />
+                <div class="horizontal-line lg:hidden" />
+                <div class="horizontal-line lg:hidden" />
             </div>
             <div class="vertical-lines-wrapper">
                 <div class="verlical-line" />
