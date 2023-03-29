@@ -1,5 +1,6 @@
 <script lang="ts">
     import { onMount } from "svelte";
+    import Grid from "./Grid.svelte";
 
     interface Card {
         title: string;
@@ -8,17 +9,10 @@
         link: string;
     }
 
-    interface CardPositionData {
-        originalPos: {
-            x: number;
-            y: number;
-            z: number;
-        };
-        z: number;
-    }
-
     const MAGNITUDE_ON_INCREASE = 1 / 2;
-    const DISTANCE_BW_CARDS = 300;
+    const DISTANCE_BW_CARDS = 350;
+    const PADDINGS = 200;
+
     const cards: Card[] = [
         {
             title: "LMFAO.tech",
@@ -29,7 +23,8 @@
         },
         {
             title: "Cakecutter",
-            description:"Project boostrapping and setup tool. Easier than making a cake",
+            description:
+                "Project boostrapping and setup tool. Easier than making a cake",
             image: "/cc.png",
             link: "https://cakes.run",
         },
@@ -44,27 +39,27 @@
             description: "A simple and easy to free API testing tool.",
             image: "/reqcool.png",
             link: "https://req-cool.vercel.app",
-        }
+        },
     ];
 
     const height =
         cards.length * ((DISTANCE_BW_CARDS * 1) / MAGNITUDE_ON_INCREASE) +
         2 * MAGNITUDE_ON_INCREASE +
-        DISTANCE_BW_CARDS;
+        3 * DISTANCE_BW_CARDS +
+        PADDINGS;
 
-    const no_rerender: {
-        data: CardPositionData[];
+    const nr: {
         cs?: NodeListOf<HTMLDivElement>;
         lastScroll?: number;
-    } = { data: [] };
+    } = {};
 
     let wrapper: HTMLDivElement;
     let intro: HTMLDivElement;
 
     onMount(async () => {
-        no_rerender.cs = wrapper.querySelectorAll(".card");
+        nr.cs = wrapper.querySelectorAll(".card");
 
-        no_rerender.cs.forEach((card, i) => {
+        nr.cs.forEach((card, i) => {
             console.log("h");
 
             const rect = card.getBoundingClientRect();
@@ -74,13 +69,8 @@
             const translate3d = {
                 x: (rect.width * rightLeft * 3) / 4,
                 y: 0,
-                z: i * -DISTANCE_BW_CARDS,
+                z: i * -DISTANCE_BW_CARDS - PADDINGS,
             };
-
-            no_rerender.data.push({
-                originalPos: translate3d,
-                z: translate3d.z,
-            });
 
             card.style.setProperty("--x", `${translate3d.x}px`);
             card.style.setProperty("--oZ", `${translate3d.z}px`);
@@ -98,28 +88,19 @@
     function onScroll() {
         const scroll = window.scrollY;
 
-        if (scroll > 5) {
-            intro.animate([{
-                opacity: 0
-            }], {
-                duration: 1000,
-                easing: "ease-in-out",
-                fill: "forwards"
-            })
-        } else {
-            intro.animate([{
-                opacity: 1
-            }], {
-                duration: 1000,
-                easing: "ease-in-out",
-                fill: "forwards"
-            })
+        const opacity =
+            1 - (scroll - 30) / 300 < 0 ? 0 : 1 - (scroll - 30) / 300;
+
+        const lOp = parseInt(intro.style.getPropertyValue("--op")) || 1;
+
+        if (Math.abs(lOp - opacity) > 0.1) {
+            intro.style.setProperty("--op", `${opacity}`);
         }
 
-        no_rerender.lastScroll = scroll;
+        nr.lastScroll = scroll;
 
-        const last = no_rerender.cs![no_rerender.cs!.length - 1];
-        const lastSecond = no_rerender.cs![no_rerender.cs!.length - 2];
+        const last = nr.cs![nr.cs!.length - 1];
+        const lastSecond = nr.cs![nr.cs!.length - 2];
 
         wrapper.style.setProperty("--z", `${scroll * MAGNITUDE_ON_INCREASE}px`);
 
@@ -144,7 +125,7 @@
             lastSecond.style.removeProperty("--z");
         }
 
-        no_rerender.cs!.forEach((card, i) => {
+        nr.cs!.forEach((card) => {
             const last = parseFloat(
                 card.style.getPropertyValue("--oZ").replace("px", "")
             );
@@ -153,19 +134,55 @@
 
             card.style.setProperty(
                 "--opacity",
-                `${z < (-3 / 2) * DISTANCE_BW_CARDS ? 0 : 1}`
+                `${z < -4/3 * DISTANCE_BW_CARDS ? 0 : 1}`
             );
         });
     }
 </script>
 
 <div class="z-[-1] relative" style={`height: ${height}px;`}>
-    <div bind:this={intro} class="fixed flex justify-center flex-col items-center z-1 p-20 top-0 gap-2 w-screen h-screen bg-black/80">
-        <div class="text-center">
-            <h1 class="text-5xl my-2 font-bold">Hi, I'm <span class="text-rose-500">Yash</span></h1>
-            <p class="text-2xl">A 14yr old software developer, <br> proficient in Typescript, Python,<br> Golang, and a little bit of rust</p>
+    <div
+        bind:this={intro}
+        class="aboutme fixed flex justify-between flex-col items-center z-1 p-16 top-0 gap-2 w-screen h-screen bg-black"
+    >
+        <div
+            class="flex gap-2 font-bold p-3 py-2 pr-4 rounded-full bg-white/10 justify-center items-center"
+        >
+            <img
+                src="https://avatars.githubusercontent.com/u/93475253?v=4"
+                class="w-8 h-8 rounded-full"
+                alt="Yash"
+            />
+            yxshv
         </div>
-        <span class="absolute bottom-[50px]">SCROLL TO BEGIN</span>
+        <div class="text-center">
+            <!-- <h1 class="text-5xl my-2 font-bold">Hi, I'm <span class="text-rose-500">Yash</span></h1> -->
+            <p class="text-3xl font-semibold">
+                Hey
+                <svg
+                    class="inline-block mb-2 rotate-[20deg]"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="32"
+                    height="32"
+                    viewBox="0 0 24 24"
+                >
+                    <path
+                        fill="currentColor"
+                        d="M13 24q-2.575 0-4.7-1.438t-3.075-3.837L2.675 12.3q-.1-.25-.137-.463T2.5 11.35q0-.75.575-1.325T4.4 9.45q.175 0 .313.013T5 9.525l.775.2q.35.1.65.263T7 10.4V4.5q0-1.05.725-1.775T9.5 2q.15 0 .288.012t.262.038q.15-.95.863-1.5T12.5 0q.8 0 1.425.438t.9 1.162q.175-.05.338-.075T15.5 1.5q1.05 0 1.775.725T18 4v.55q.125-.025.25-.037t.25-.013q1.05 0 1.775.725T21 7v9q0 3.35-2.325 5.675T13 24Zm0-2q2.5 0 4.25-1.75T19 16V7q0-.2-.15-.35t-.35-.15q-.2 0-.35.15T18 7v4q0 .425-.288.713T17 12q-.425 0-.713-.288T16 11V4q0-.2-.15-.35t-.35-.15q-.2 0-.35.15T15 4v7q0 .425-.288.713T14 12q-.425 0-.713-.288T13 11V2.5q0-.2-.15-.35T12.5 2q-.2 0-.35.15T12 2.5V11q0 .425-.288.713T11 12q-.425 0-.713-.288T10 11V4.5q0-.2-.15-.35T9.5 4q-.2 0-.35.15T9 4.5V14q0 .425-.288.713T8 15h-.375q-.325 0-.537-.163t-.338-.462L6.025 12.5q-.175-.425-.488-.625T4.5 11.45L7.1 18q.725 1.8 2.337 2.9T13 22Z"
+                    />
+                </svg>
+                I am <span class="hero-underline">Yash!</span> A 14yr old
+                <br />software developer, proficient in
+                <span class="hero-underline">Typescript</span>,
+                <br /> <span class="hero-underline">Python</span>,
+                <span class="hero-underline">Golang</span>, and a little bit of
+                <span class="hero-underline">rust</span>
+            </p>
+        </div>
+        <span class="flex justify-center items-center gap-1">
+            <div class="scroll" />
+            SCROLL TO BEGIN
+        </span>
     </div>
     <div
         bind:this={wrapper}
@@ -175,7 +192,7 @@
     >
         {#each cards as card, index (index)}
             <div class="card z-[-1]" style="translate: -50% -50%">
-                <img class="rounded-md" src={card.image} alt="card image" />
+                <img class="rounded-md" src={card.image} alt="card" />
                 <div class="details p-2">
                     <h1 class="font-bold text-2xl overflow-y-hidden">
                         {card.title}
@@ -185,9 +202,21 @@
             </div>
         {/each}
     </div>
+    <!-- starts -->
+    <div class="z-[-30] h-screen w-screen fixed top-0 stars">
+        <div class="overlay w-screen h-screen absolute top-0"></div>
+        <div
+            style="background-image: url(/stars.svg)"
+            class="w-screen h-screen"
+        />
+    </div>
+    <Grid />
 </div>
 
 <style lang="postcss">
+    .hero-underline {
+        @apply underline underline-offset-4 decoration-2;
+    }
 
     .card {
         width: 350px;
@@ -197,8 +226,12 @@
         translate: -50% -50%;
         color: white;
 
-        @apply bg-gray-800 rounded-3xl flex-col flex justify-center p-3 gap-2;
-        
+        background: rgb(0, 7, 25);
+
+        @apply rounded-3xl flex-col flex justify-center p-3 gap-2;
+
+        box-shadow: 2.5px 2.5px #58479c, -1px -1px #58479c;
+
         will-change: transform, opacity;
         transform: translate3d(var(--x), 0, calc(var(--z) + var(--oZ)));
         opacity: var(--opacity);
@@ -207,9 +240,25 @@
 
     .card img {
         @apply rounded-2xl;
+        box-shadow: 2px 2px #7861d4;
     }
 
     #wrapper {
         overflow: hidden;
+    }
+
+    .aboutme {
+        will-change: opacity, scale;
+
+        opacity: var(--op);
+        transition: opacity, scale 1000ms ease-in-out;
+    }
+
+    .stars {
+        opacity: 0.8;
+    }
+
+    .stars .overlay {
+        background-image: radial-gradient(circle, transparent 0%, black 80%, black 100%);
     }
 </style>
