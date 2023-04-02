@@ -57,35 +57,10 @@
     let wrapper: HTMLDivElement;
     let intro: HTMLDivElement;
 
-    function checkMobile(after_load = false): boolean {
-        if (window.innerWidth < 768) {
-            const wrapper = document.body.querySelector("#wrapper") as HTMLDivElement;
-            const tWrapper = document.body.querySelector('#tWrapper') as HTMLDivElement;
-            console.log(tWrapper)
-            tWrapper.style.height = '100vh'
-            console.log(tWrapper)
-            nr.cs!.forEach((card) => {
-                wrapper.removeChild(card)
-            })
-            if (after_load) {
-                window.removeEventListener("scroll", onScroll);
-                window.removeEventListener("click", onClick)
-            }
-
-            return true
-        }
-
-        return false
-
-    }
 
     onMount(async () => {
 
         nr.cs = wrapper.querySelectorAll(".card");
-
-        if (checkMobile()) {
-            return
-        }
 
         nr.cs.forEach((card, i) => {
 
@@ -111,7 +86,6 @@
         onScroll();
         window.addEventListener("scroll", onScroll);
         window.addEventListener("click", onClick)
-        window.addEventListener("resize", () => checkMobile(true))
     });
 
     function onClick(event: MouseEvent) {
@@ -206,10 +180,10 @@
     }
 </script>
 
-<div id="tWrapper" class=" z-[-1] relative" style={`height: ${height}px;`}>
+<div id="tWrapper" class="z-[-1] hidden lg:block relative" style={`height: ${height}px;`}>
     <div
         bind:this={intro}
-        class="aboutme fixed flex justify-center gap-10 lg:justify-between flex-col items-center z-1 p-8 lg:p-16 top-0 w-screen h-screen lg:bg-black"
+        class="aboutme fixed flex justify-center gap-10 lg:justify-between flex-col items-center z-1 p-8 lg:p-16 top-0 w-screen h-full bg-[#101217]"
     >
         <div
             class="flex gap-2 font-bold p-3 py-2 pr-4 rounded-full bg-white/10 justify-center items-center"
@@ -243,27 +217,6 @@
                 <span class="hero-underline">Golang</span>, and a little bit of
                 <span class="hero-underline">rust</span>
             </p>
-            <p class="text-2xl lg:hidden font-semibold">
-                Hey
-                <svg
-                    class="inline-block mb-2 rotate-[20deg]"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="32"
-                    height="32"
-                    viewBox="0 0 24 24"
-                >
-                    <path
-                        fill="currentColor"
-                        d="M13 24q-2.575 0-4.7-1.438t-3.075-3.837L2.675 12.3q-.1-.25-.137-.463T2.5 11.35q0-.75.575-1.325T4.4 9.45q.175 0 .313.013T5 9.525l.775.2q.35.1.65.263T7 10.4V4.5q0-1.05.725-1.775T9.5 2q.15 0 .288.012t.262.038q.15-.95.863-1.5T12.5 0q.8 0 1.425.438t.9 1.162q.175-.05.338-.075T15.5 1.5q1.05 0 1.775.725T18 4v.55q.125-.025.25-.037t.25-.013q1.05 0 1.775.725T21 7v9q0 3.35-2.325 5.675T13 24Zm0-2q2.5 0 4.25-1.75T19 16V7q0-.2-.15-.35t-.35-.15q-.2 0-.35.15T18 7v4q0 .425-.288.713T17 12q-.425 0-.713-.288T16 11V4q0-.2-.15-.35t-.35-.15q-.2 0-.35.15T15 4v7q0 .425-.288.713T14 12q-.425 0-.713-.288T13 11V2.5q0-.2-.15-.35T12.5 2q-.2 0-.35.15T12 2.5V11q0 .425-.288.713T11 12q-.425 0-.713-.288T10 11V4.5q0-.2-.15-.35T9.5 4q-.2 0-.35.15T9 4.5V14q0 .425-.288.713T8 15h-.375q-.325 0-.537-.163t-.338-.462L6.025 12.5q-.175-.425-.488-.625T4.5 11.45L7.1 18q.725 1.8 2.337 2.9T13 22Z"
-                    />
-                </svg>
-                I am <span class="hero-underline">Yash!</span> A 14yr old 
-                software developer, proficient in
-                <span class="hero-underline">Typescript</span>,
-                <span class="hero-underline">Python</span>,
-                <span class="hero-underline">Golang</span>, and a little bit of
-                <span class="hero-underline">rust</span>
-            </p>
         </div>
         <span class="hidden lg:flex justify-center items-center gap-1">
             <div class="scroll" />
@@ -289,14 +242,61 @@
         {/each}
     </div>
     <!-- starts -->
-    <div class="z-[-30] h-screen w-screen fixed top-0 stars">
+    <div class="z-[-30] h-full w-screen fixed top-0 stars">
         <div class="overlay w-screen h-screen absolute top-0"></div>
         <div
             style="background-image: url(/stars.svg)"
             class="w-screen h-screen"
         />
     </div>
-    <Grid />
+</div>
+
+<div class="mobile lg:hidden h-auto relative">
+    <div
+        class="flex isolate justify-center relative py-28 gap-10 lg:justify-between flex-col items-center z-1 p-8 lg:p-16 top-0 w-screen h-full bg-[#101217]"
+    >
+        <div
+            class="flex gap-2 font-bold p-3 py-2 pr-4 rounded-full bg-white/10 justify-center items-center"
+        >
+            <img
+                src="https://avatars.githubusercontent.com/u/93475253?v=4"
+                class="w-8 h-8 rounded-full"
+                alt="Yash"
+            />
+            yxshv
+        </div>
+        <div class="text-center me">
+            <p class="text-2xl lg:hidden font-semibold">
+                Hey
+                <svg
+                    class="inline-block mb-2 rotate-[20deg]"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="32"
+                    height="32"
+                    viewBox="0 0 24 24"
+                >
+                    <path
+                        fill="currentColor"
+                        d="M13 24q-2.575 0-4.7-1.438t-3.075-3.837L2.675 12.3q-.1-.25-.137-.463T2.5 11.35q0-.75.575-1.325T4.4 9.45q.175 0 .313.013T5 9.525l.775.2q.35.1.65.263T7 10.4V4.5q0-1.05.725-1.775T9.5 2q.15 0 .288.012t.262.038q.15-.95.863-1.5T12.5 0q.8 0 1.425.438t.9 1.162q.175-.05.338-.075T15.5 1.5q1.05 0 1.775.725T18 4v.55q.125-.025.25-.037t.25-.013q1.05 0 1.775.725T21 7v9q0 3.35-2.325 5.675T13 24Zm0-2q2.5 0 4.25-1.75T19 16V7q0-.2-.15-.35t-.35-.15q-.2 0-.35.15T18 7v4q0 .425-.288.713T17 12q-.425 0-.713-.288T16 11V4q0-.2-.15-.35t-.35-.15q-.2 0-.35.15T15 4v7q0 .425-.288.713T14 12q-.425 0-.713-.288T13 11V2.5q0-.2-.15-.35T12.5 2q-.2 0-.35.15T12 2.5V11q0 .425-.288.713T11 12q-.425 0-.713-.288T10 11V4.5q0-.2-.15-.35T9.5 4q-.2 0-.35.15T9 4.5V14q0 .425-.288.713T8 15h-.375q-.325 0-.537-.163t-.338-.462L6.025 12.5q-.175-.425-.488-.625T4.5 11.45L7.1 18q.725 1.8 2.337 2.9T13 22Z"
+                    />
+                </svg>
+                I am <span class="hero-underline">Yash!</span> A 14yr old 
+                software developer, proficient in
+                <span class="hero-underline">Typescript</span>,
+                <span class="hero-underline">Python</span>,
+                <span class="hero-underline">Golang</span>, and a little bit of
+                <span class="hero-underline">rust</span>
+            </p>
+        </div>
+        <div class="z-[-1] h-full w-full absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 stars">
+            <div class="overlay phone w-screen h-full absolute top-0" />
+            <div
+                style="background-image: url(/stars.svg)"
+                class="w-screen h-full"
+            />
+        </div>
+    </div>
+    
 </div>
 
 <style lang="postcss">
@@ -349,6 +349,11 @@
     }
 
     .stars .overlay {
-        background-image: radial-gradient(circle, transparent 0%, black 80%, black 100%);
+        background-image: radial-gradient(circle, transparent 0%, #101217 80%, #101217 100%);
     }
+    
+    .stars .overlay.phone {
+        background-image: radial-gradient(circle, transparent 0%, #101217 99%);
+    }
+
 </style>
