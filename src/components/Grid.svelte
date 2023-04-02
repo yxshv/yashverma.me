@@ -1,10 +1,9 @@
-
 <div class="w-screen -z-20 bg-black fixed bottom-0">
     <div class="retro-grid-wrapper">
         <div class="grid">
             <div
                 class="horizontal-line-wrapper"
-                style="will-change: transform; transform: translate3d(0px, 8.749vh, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;"
+                style="will-change: transform; transform: translate3d(0px, 2.249vh, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;"
             >
                 <div class="horizontal-line" />
                 <div class="horizontal-line" />
@@ -15,7 +14,6 @@
                 <div class="horizontal-line" />
                 <div class="horizontal-line" />
                 <div class="horizontal-line" />
-                <div class="horizontal-line" /> 
                 <div class="horizontal-line" />
                 <div class="horizontal-line" />
                 <div class="horizontal-line" />
@@ -25,13 +23,17 @@
                 <div class="horizontal-line" />
                 <div class="horizontal-line" />
                 <div class="horizontal-line" />
-                <div class="horizontal-line" />
-                <div class="horizontal-line" />
-                <div class="horizontal-line" />
-                <div class="horizontal-line lg:hidden" />
-                <div class="horizontal-line lg:hidden" />
             </div>
             <div class="vertical-lines-wrapper">
+                <div class="verlical-line" />
+                <div class="verlical-line" />
+                <div class="verlical-line" />
+                <div class="verlical-line" />
+                <div class="verlical-line" />
+                <div class="verlical-line" />
+                <div class="verlical-line" />
+                <div class="verlical-line" />
+                <div class="verlical-line" />
                 <div class="verlical-line" />
                 <div class="verlical-line" />
                 <div class="verlical-line" />
@@ -120,12 +122,19 @@
         background-color: #58479c;
         box-shadow: 0 0 15px 0 #58479c;
     }
-    
+
     .verlical-line {
         width: 1px;
         height: 100%;
         /* background-color: #58479c; */
-        background: linear-gradient(black, black, black, black, black, #58479c, #58479c, #58479c);
+        background: linear-gradient(
+            black,
+            black,
+            black,
+            #58479c,
+            #58479c,
+            #58479c
+        );
         box-shadow: 0 0 15px 0 rgba(88, 71, 156, 0.75);
     }
 </style>

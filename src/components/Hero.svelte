@@ -12,6 +12,7 @@
     const MAGNITUDE_ON_INCREASE = 1 / 2;
     const DISTANCE_BW_CARDS = 350;
     const PADDINGS = 200;
+    const PERSPECTIVE = 200;
 
     const cards: Card[] = [
         {
@@ -114,6 +115,10 @@
     });
 
     function onClick(event: MouseEvent) {
+        
+        if (window.scrollY > height - window.innerHeight) {
+            return;
+        }
 
         const mousePos = {
             x: event.clientX,
@@ -125,8 +130,9 @@
 
             const isInside = mousePos.x >= rect.left && mousePos.x <= rect.right && mousePos.y >= rect.top && mousePos.y <= rect.bottom;
             const opacity = parseFloat(card.style.getPropertyValue("--opacity"));
+            const z = parseFloat(card.style.getPropertyValue("--oZ")) + parseFloat(wrapper.style.getPropertyValue("--z"));
 
-            if (isInside && opacity > 0) {
+            if (isInside && opacity > 0 && z < PERSPECTIVE) {
                 const link = cards[index].link;
                 window.open(link, "_blank");
             }
@@ -269,7 +275,7 @@
         bind:this={wrapper}
         id="wrapper"
         class="h-screen overflow-y-hidden w-screen fixed z-[-1]"
-        style="perspective: 200px"
+        style={`perspective: ${PERSPECTIVE}px`}
     >
         {#each cards as card, index (index)}
             <div class="card z-[-1]" style="translate: -50% -50%">
@@ -311,7 +317,7 @@
 
         @apply rounded-3xl flex-col flex justify-center p-3 gap-2;
 
-        box-shadow: 2.5px 2.5px #58479c, -1px -1px #58479c;
+        border: 2px solid #7861d4;
 
         will-change: transform, opacity;
         transform: translate3d(var(--x), 0, calc(var(--z) + var(--oZ)));
@@ -341,10 +347,6 @@
 
         scale: var(--sc);
         transition: scale 300ms;
-    }
-
-    .stars {
-        opacity: 0.8;
     }
 
     .stars .overlay {
