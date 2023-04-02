@@ -14,7 +14,7 @@
 }
 
 body {
-	background: #101217;
+	background: #131325;
     color: white;
 	overflow-x: hidden;
 	font-family: Archia, sans-serif;
@@ -45,17 +45,18 @@ body {
 	background: white;
 	left: 50%;
 	translate: -50% 0;
+	top: 0;
 	animation: updown 2s infinite forwards;
 }
 
 @keyframes updown {
 	0% {
-		transform: translateY( var(--size) );
+		transform: translateY( calc(0.8*var(--size)) );
 	}
 	50% {
-		transform: translateY( calc( var(--height) - 2*var(--size) ) );
+		transform: translateY( calc( var(--height) - 2.2*var(--size) ) );
 	}
 	100% {
-		transform: translateY( var(--size) );
+		transform: translateY( calc(0.8*var(--size)) );
 	}
 }

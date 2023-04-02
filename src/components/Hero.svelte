@@ -45,7 +45,7 @@
     const height =
         cards.length * ((DISTANCE_BW_CARDS * 1) / MAGNITUDE_ON_INCREASE) +
         2 * MAGNITUDE_ON_INCREASE +
-        3 * DISTANCE_BW_CARDS +
+        2 * DISTANCE_BW_CARDS +
         PADDINGS;
 
     const nr: {
@@ -182,13 +182,13 @@
 <div id="tWrapper" class="z-[-1] hidden lg:block relative" style={`height: ${height}px;`}>
     <div
         bind:this={intro}
-        class="aboutme fixed flex justify-center gap-10 lg:justify-between flex-col items-center z-1 p-8 lg:p-16 top-0 w-screen h-full bg-[#101217]"
+        class="aboutme fixed flex justify-center gap-10 lg:justify-between flex-col items-center z-1 p-8 lg:p-16 top-0 w-screen h-full bg-[#131325]"
     >
         <div
             class="flex gap-2 font-bold p-3 py-2 pr-4 rounded-full bg-white/10 justify-center items-center"
         >
             <img
-                src="https://avatars.githubusercontent.com/u/93475253?v=4"
+                src="/logo.jpg"
                 class="w-8 h-8 rounded-full"
                 alt="Yash"
             />
@@ -250,7 +250,7 @@
     </div>
 </div>
 
-<div class="mobile lg:hidden h-auto relative">
+<div class="mobile lg:hidden h-auto relative border-b border-[#474466]">
     <div
         class="flex isolate justify-center relative py-28 gap-10 lg:justify-between flex-col items-center z-1 p-8 lg:p-16 top-0 w-screen h-full bg-[#101217]"
     >
@@ -258,7 +258,7 @@
             class="flex gap-2 font-bold p-3 py-2 pr-4 rounded-full bg-white/10 justify-center items-center"
         >
             <img
-                src="https://avatars.githubusercontent.com/u/93475253?v=4"
+                src="/logo.jpg"
                 class="w-8 h-8 rounded-full"
                 alt="Yash"
             />
@@ -311,11 +311,11 @@
         translate: -50% -50%;
         color: white;
 
-        background: rgb(0, 7, 25);
+        background: #1B1B31;
 
         @apply rounded-3xl flex-col flex justify-center p-3 gap-2;
 
-        border: 2px solid #7861d4;
+        border: 2px solid #474466;
 
         will-change: transform, opacity;
         transform: translate3d(var(--x), 0, calc(var(--z) + var(--oZ)));
@@ -325,7 +325,7 @@
 
     .card img {
         @apply rounded-2xl;
-        box-shadow: 2px 2px #7861d4;
+        box-shadow: 2px 2px #474466;
     }
 
     #wrapper {
@@ -348,11 +348,11 @@
     }
 
     .stars .overlay {
-        background-image: radial-gradient(circle, transparent 0%, #101217 80%, #101217 100%);
+        background-image: radial-gradient(circle, transparent 0%, #131325 80%, #131325 100%);
     }
     
     .stars .overlay.phone {
-        background-image: radial-gradient(circle, transparent 0%, #101217 99%);
+        background-image: radial-gradient(circle, transparent 0%, #131325 99%);
     }
 
 </style>
