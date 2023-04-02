@@ -1,7 +1,7 @@
 <script lang="ts">
     import { onMount } from "svelte";
 
-    const OFFSET = 0.08;
+    const OFFSET = 0.09;
     let card: HTMLDivElement;
 
     const nr: {
