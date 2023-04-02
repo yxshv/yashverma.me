@@ -1,6 +1,5 @@
 <script lang="ts">
     import { onMount } from "svelte";
-    import Grid from "./Grid.svelte";
 
     interface Card {
         title: string;
