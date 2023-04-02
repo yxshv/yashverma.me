@@ -116,7 +116,7 @@
 
     function onClick(event: MouseEvent) {
         
-        if (window.scrollY > height - window.innerHeight) {
+        if (window.scrollY > (height + window.innerHeight) || window.scrollY < 100) {
             return;
         }
 
@@ -144,7 +144,6 @@
         const scroll = window.scrollY;
 
         let opacity = 1;
-
         let scale = 1;
 
         if (scroll < 200) {
