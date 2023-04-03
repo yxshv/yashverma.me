@@ -30,7 +30,7 @@
                         class="content px-5 pt-4 flex justify-center item-center flex-col"
                     >
                         <h1
-                            class="text-xl  block text-center w-full flex-grow"
+                            class="text-2xl  block text-center w-full flex-grow"
                         >
                             My Projects
                         </h1>
@@ -44,7 +44,7 @@
                         class="content px-5 pt-4 flex justify-center item-center flex-col"
                     >
                         <h1
-                            class="text-xl block text-center w-full flex-grow"
+                            class="text-2xl block text-center w-full flex-grow"
                         >
                             My Tech Stack
                         </h1>
