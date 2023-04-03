@@ -4,6 +4,6 @@
 </script>
 
 <Hero />
-<div class="min-h-screen w-screen bg-[#131325]">
+<div class="min-h-screen w-screen bg-[#131325] border-t-2 border-[#474466] border-dashed ">
     <Cards />
 </div>

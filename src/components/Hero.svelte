@@ -262,7 +262,7 @@
     </div>
 </div>
 
-<div class="mobile lg:hidden h-auto relative border-b border-[#474466]">
+<div class="mobile lg:hidden h-auto relative">
     <div
         class="flex isolate justify-center relative py-28 gap-10 lg:justify-between flex-col items-center z-1 p-8 lg:p-16 top-0 w-screen h-full bg-[#101217]"
     >
