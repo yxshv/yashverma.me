@@ -1,36 +1,83 @@
 <script lang="ts">
     import Card from "./Card.svelte";
-    import { PUBLIC_DISCORD_ID } from '$env/static/public'
+    import { PUBLIC_DISCORD_ID } from "$env/static/public";
     import { useLanyard } from "sk-lanyard";
 
     const presence = useLanyard({ method: "ws", id: PUBLIC_DISCORD_ID });
     const colors: { [key: string]: string } = {
-        "idle": "#F0B232",
-        "online": "#23A55A",
-        "dnd": "#EC3E42",
-        "offline": "#80848E"
-    }
+        idle: "#F0B232",
+        online: "#23A55A",
+        dnd: "#EC3E42",
+        offline: "#80848E",
+    };
+    const activities: { [key: string]: string } = {
+        0: "Playing",
+        1: "Streaming",
+        2: "Listening to",
+        3: "Watching",
+        4: "",
+        5: "Competing in",
+        9: "",
+    };
 
+    let status: [string, string] = ["", ""];
+
+    $: {
+        const act = $presence?.activities;
+        if (act) {
+            let set = false;
+            act.forEach((a) => {
+                if (set && status[0] !== "Listening" && a.type !== 0) return;
+                if (a.type === 4) {
+                    status = [a.state, ""];
+                    set = true;
+                } else {
+                    status = [activities[a.type], a.name];
+                    set = true;
+                }
+            });
+        }
+    }
 </script>
 
 <Card>
     <div class="content flex justify-center items-center p-10">
-        <div class="avatar w-20 rounded-full" style={`--color: ${colors[$presence?.discord_status ?? "offline"]};`}>
-            <img 
-                src={$presence ? `https://cdn.discordapp.com/avatars/${$presence?.discord_user.id}/${$presence?.discord_user.avatar}` : "/nopfp.jpg"}
+        <div
+            class="avatar w-20 rounded-full"
+            style={`--color: ${
+                colors[$presence?.discord_status ?? "offline"]
+            };`}
+        >
+            <img
+                src={$presence
+                    ? `https://cdn.discordapp.com/avatars/${$presence?.discord_user.id}/${$presence?.discord_user.avatar}`
+                    : "/nopfp.jpg"}
                 alt="discord user avatar"
                 class="rounded-full w-20"
             />
         </div>
-        <div class="flex flex-col justify-center items-center gap-2 ml-4">
-            <h1 class="text-lg">
-                {#if $presence}
-                    {$presence?.discord_user.username}<span class="opacity-50">#{$presence?.discord_user.discriminator}</span>
-                {:else}
-                    <span class="inline-block w-[100px] h-[20px] bg-white/10 rounded-md" />
-                {/if}
-            </h1>
-            <p>{JSON.stringify($presence?.activities)}</p>
+        <div class="flex flex-col justify-center items-start ml-4">
+            {#if $presence}
+                <h1 class="text-lg">
+                    {$presence?.discord_user.username}
+                    <span class="opacity-50">
+                        #{$presence?.discord_user.discriminator}
+                    </span>
+                </h1>
+                <p class="text-sm">
+                    {status[0]}
+                    <span class="underline underline-offset-2">
+                        {status[1]}
+                    </span>
+                </p>
+            {:else}
+                <h1 class="text-lg">
+                    <span
+                        class="inline-block w-[100px] h-[15px] bg-white/10 rounded-md"
+                    />
+                </h1>
+                <p class="w-[100px] h-[15px] bg-white/10 rounded-md inline-block" />
+            {/if}
         </div>
     </div>
 </Card>
@@ -49,9 +96,8 @@
     .avatar::after {
         content: "";
 
-        @apply absolute bottom-0 right-0 w-5 h-5 scale-[0.6] rounded-full -translate-x-1 -translate-y-1;
-        
+        @apply absolute bottom-0 right-0 w-5 h-5 scale-[0.7] rounded-full -translate-x-1 -translate-y-1;
+
         background: var(--color);
     }
-
 </style>
