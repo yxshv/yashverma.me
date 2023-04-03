@@ -84,12 +84,14 @@
 
         onScroll();
         window.addEventListener("scroll", onScroll);
-        window.addEventListener("click", onClick)
+        document.addEventListener("click", onClick);    
     });
 
     function onClick(event: MouseEvent) {
-        
-        if (window.scrollY > (height + window.innerHeight) || window.scrollY < 100) {
+    
+        console.log("click")
+
+        if ((window.scrollY + window.innerHeight/2 ) >= height || window.scrollY < 100) {
             return;
         }
 
@@ -98,14 +100,21 @@
             y: event.clientY,
         };
 
+        if (!wrapper) return
+
+        console.log("wrapper")
+
         nr.cs?.forEach((card, index) => {
             const rect = card.getBoundingClientRect();
-
+            
             const isInside = mousePos.x >= rect.left && mousePos.x <= rect.right && mousePos.y >= rect.top && mousePos.y <= rect.bottom;
             const opacity = parseFloat(card.style.getPropertyValue("--opacity"));
-            const z = parseFloat(card.style.getPropertyValue("--oZ")) + parseFloat(wrapper.style.getPropertyValue("--z"));
+            
+            const z = parseFloat(wrapper.style.getPropertyValue("--z").replace('px', '')) + parseFloat(card.style.getPropertyValue("--oZ").replace('px', ''));
 
-            if (isInside && opacity > 0 && z < PERSPECTIVE) {
+            console.log((index+1) * PERSPECTIVE + PADDINGS, z, cards[index].title, index*PERSPECTIVE + PADDINGS >= z)
+
+            if (isInside && opacity > 0 && z <= ((index+1)*PERSPECTIVE + PADDINGS)) {
                 const link = cards[index].link;
                 window.open(link, "_blank");
             }
@@ -114,6 +123,9 @@
     }
 
     function onScroll() {
+
+        if (!intro) return
+
         const scroll = window.scrollY;
 
         let opacity = 1;
