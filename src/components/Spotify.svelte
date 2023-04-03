@@ -1,8 +1,11 @@
+<!-- svelte-ignore a11y-click-events-have-key-events -->
+
 <script lang="ts">
     import Card from "./Card.svelte";
+    import { PUBLIC_DISCORD_ID } from '$env/static/public'
     import { useLanyard } from "sk-lanyard";
 
-    const presence = useLanyard({ method: "ws", id: "753845980507537478" });
+    const presence = useLanyard({ method: "ws", id: PUBLIC_DISCORD_ID });
     let progress = 0;
 
     $: if ($presence?.listening_to_spotify) {
@@ -16,9 +19,14 @@
     <div class="content flex justify-center item-center gap-2 flex-col">
         <div class="flex justify-center items-center gap-2">
             {#if $presence?.listening_to_spotify}
-                <img src={$presence.spotify.album_art_url} class="w-20" alt="spotify" />
+                <img on:click={() => window.open("https://open.spotify.com/track/" + $presence?.spotify.track_id)} src={$presence.spotify.album_art_url} class="w-20 cursor-pointer" alt="spotify" />
                 <div class="flex justify-center flex-col">
-                    <h1 class="text-lg font-semibold">{$presence?.spotify.song}</h1>
+                    <h1
+                        class="text-lg font-semibold underline decoration-transparent underline-offset-2 hover:decoration-white cursor-pointer" 
+                        on:click={() => window.open("https://open.spotify.com/track/" + $presence?.spotify.track_id)}
+                    >
+                        {$presence?.spotify.song}
+                    </h1>
                     <p class="text-md opacity-75">{$presence?.spotify.artist}</p>
                 </div>
                 {:else}

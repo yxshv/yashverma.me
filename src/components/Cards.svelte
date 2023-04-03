@@ -1,10 +1,8 @@
 <script lang="ts">
     import Card from "./Card.svelte";
-    import "./cards.css";
-
-    import { useLanyard } from 'sk-lanyard';
     import Spotify from "./Spotify.svelte";
-	const presence = useLanyard({ method: 'ws', id: '753845980507537478' });
+    import "./cards.css";
+    import Discord from "./Discord.svelte";
 </script>
 
 <div class="p-8 py-10 lg:p-20">
@@ -91,7 +89,7 @@
             </div>
         </div>
     </div>
+    <div class="flex justify-center mt-8 gap-8 items-center flex-wrap">
+        <Discord />
+    </div>
 </div>
-
-<style lang="postcss">
-</style>
