@@ -9,11 +9,11 @@
             <div class="h-[70%] p-0">
                 <div class="content rounded-[1.7rem] content-hs">
                     <div class="map relative">
-                        <img class="w-80 " src="/map.png" />
+                        <img class="w-80" alt="bhopal map" src="/map.png" />
                         <div
                             class="logo absolute rounded-full bg-[#1B1B31] p-[3px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
                         >
-                            <img class="w-8 rounded-full" src="/logo.jpg" />
+                            <img class="w-8 rounded-full" alt="my logo" src="/logo.jpg" />
                         </div>
                     </div>
                 </div>
@@ -34,7 +34,7 @@
                         My Projects
                     </h1>
                     <div class="">
-                        <img src="/projects.svg" class="scale-[1.2]" />
+                        <img src="/projects.svg" alt="my project list" class="scale-[1.2]" />
                     </div>
                 </div>
             </Card>
@@ -49,7 +49,7 @@
                         My Tech Stack
                     </h1>
                     <div class="">
-                        <img src="/techstack.svg" class="scale-[1.3] image" />
+                        <img src="/techstack.svg" alt="my tech stack" class="scale-[1.3] image" />
                     </div>
                 </div>
             </Card>
