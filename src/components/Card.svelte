@@ -14,7 +14,7 @@
 
     function updateDimension() {
 
-        if (nr.inPhone) return;
+        if (nr.inPhone || !card) return;
 
         const { top, left, width, height } = card.getBoundingClientRect();
 

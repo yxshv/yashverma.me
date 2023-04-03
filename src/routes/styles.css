@@ -20,3 +20,43 @@ body {
 	font-family: Archia, sans-serif;
 }
 
+
+.scroll {
+	--height: 1.5rem;
+
+	height: var(--height);
+	width: 1.1rem;
+	border: 1px solid white;
+	display: inline-block;
+	align-self: center;
+	position: relative;
+
+	@apply rounded-full;
+}
+
+.scroll::after {
+	content: '';
+	--size: 0.4rem;
+
+	position: absolute;
+	width: var(--size);
+	height: var(--size);
+	border-radius: 50%;
+	background: white;
+	left: 50%;
+	translate: -50% 0;
+	top: 0;
+	animation: updown 2s infinite forwards;
+}
+
+@keyframes updown {
+	0% {
+		transform: translateY( calc(0.8*var(--size)) );
+	}
+	50% {
+		transform: translateY( calc( var(--height) - 2.2*var(--size) ) );
+	}
+	100% {
+		transform: translateY( calc(0.8*var(--size)) );
+	}
+}
