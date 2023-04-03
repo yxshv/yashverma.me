@@ -1,3 +1,5 @@
+<!-- svelte-ignore a11y-click-events-have-key-events -->
+
 <script lang="ts">
     import { onMount } from "svelte";
 
@@ -75,6 +77,6 @@
     });
 </script>
 
-<div bind:this={card} class={`${classes} card`} style={`--offset: ${OFFSET}`}>
+<div on:click bind:this={card} class={`${classes} card`} style={`--offset: ${OFFSET}`}>
     <slot />
 </div>

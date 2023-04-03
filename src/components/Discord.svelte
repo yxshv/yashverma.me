@@ -40,7 +40,9 @@
     }
 </script>
 
-<Card>
+<Card on:click={() => {
+    window.open(`https://discord.com/users/${PUBLIC_DISCORD_ID}`)
+}} classes="cursor-pointer">
     <div class="content flex justify-center items-center p-10">
         <div
             class="avatar w-20 rounded-full"

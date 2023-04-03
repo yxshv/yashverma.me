@@ -15,16 +15,15 @@
 
 </script>
 
-<Card classes="w-full aspect-[1] lg:flex-1">
-    <div class="content flex justify-center item-center gap-2 flex-col">
+<Card on:click={() => {
+    window.open("https://open.spotify.com/track/" + $presence?.spotify.track_id)
+}} classes="w-full aspect-[1] lg:flex-1 cursor-pointer">
+    <div class="content min-w-[70%] flex justify-center item-center gap-3 flex-col">
         <div class="flex justify-center items-center gap-2">
             {#if $presence?.listening_to_spotify}
-                <img on:click={() => window.open("https://open.spotify.com/track/" + $presence?.spotify.track_id)} src={$presence.spotify.album_art_url} class="w-20 cursor-pointer" alt="spotify" />
+                <img src={$presence?.spotify.album_art_url} class="w-20" alt="spotify" />
                 <div class="flex justify-center flex-col">
-                    <h1
-                        class="text-lg font-semibold underline decoration-transparent underline-offset-2 hover:decoration-white cursor-pointer" 
-                        on:click={() => window.open("https://open.spotify.com/track/" + $presence?.spotify.track_id)}
-                    >
+                    <h1 class="text-lg font-semibold">
                         {$presence?.spotify.song}
                     </h1>
                     <p class="text-md opacity-75">{$presence?.spotify.artist}</p>
@@ -43,7 +42,7 @@
             {/if}
         </div>
         <div style={`display: ${$presence?.listening_to_spotify ? 'block': 'none'};`} class="h-[5px] w-full rounded-full bg-white/50">
-            <div style={`width: ${progress}%;`} class="h-[5px] bg-white rounded-full transition-all" />
+            <div style={`width: ${progress}%;`} class="h-[5px] seek bg-white rounded-full transition-all" />
         </div>
     </div>
 </Card>
@@ -85,6 +84,16 @@
         100% {
             transform: scaleY(1);
         }
+    }
+
+    .seek {
+        @apply relative;
+    }
+
+    .seek::before {
+        content: '';
+        @apply absolute top-1/2 right-0 w-[8px] h-[8px] rounded-full bg-white;
+        transform: translate(50%, -50%);
     }
 
 </style>
