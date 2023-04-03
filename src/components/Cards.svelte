@@ -94,7 +94,7 @@
     </div>
     <div class="flex justify-center mt-8 gap-8 items-center flex-wrap">
         <Discord />
-        <Card on:click={() => window.open("https://twitter.com/" + PUBLIC_TWIITER_USERNAME)} classes="cursor-pointer">
+        <Card on:click={() => window.open("https://twitter.com/" + PUBLIC_TWIITER_USERNAME)} classes="w-full lg:w-auto cursor-pointer">
             <div class="content flex justify-center items-center gap-3 flex-col p-10">
                 <div class="w-8 h-8 relative isolate">
                     <img src="/twitter.svg" class="w-8" alt="twitter" />
@@ -103,7 +103,7 @@
                 <h1 class="text-xl">Twitter</h1>
             </div>
         </Card>
-        <Card on:click={() => window.open("https://github.com/" + PUBLIC_GITHUB_USERNAME)} classes="cursor-pointer">
+        <Card on:click={() => window.open("https://github.com/" + PUBLIC_GITHUB_USERNAME)} classes="w-full lg:w-auto cursor-pointer">
             <div class="content flex justify-center items-center gap-3 flex-col p-10">
                 <div class="w-8 h-8 relative isolate">
                     <img src="/github.svg" class="w-8" alt="github" />
