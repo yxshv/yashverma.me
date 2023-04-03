@@ -3,6 +3,9 @@
     import Spotify from "./Spotify.svelte";
     import "./cards.css";
     import Discord from "./Discord.svelte";
+
+    import { PUBLIC_TWIITER_USERNAME, PUBLIC_GITHUB_USERNAME } from "$env/static/public"
+
 </script>
 
 <div class="p-8 py-10 lg:p-20">
@@ -91,5 +94,28 @@
     </div>
     <div class="flex justify-center mt-8 gap-8 items-center flex-wrap">
         <Discord />
+        <Card on:click={() => window.open("https://twitter.com/" + PUBLIC_TWIITER_USERNAME)} classes="cursor-pointer">
+            <div class="content flex justify-center items-center gap-3 flex-col p-10">
+                <div class="w-8 h-8 relative isolate">
+                    <img src="/twitter.svg" class="w-8" alt="twitter" />
+                    <img src="/twitter.svg" class="w-8 absolute top-0 left-0 -z-1" style={`filter: blur(10px);`} alt="twitter" />
+                </div>
+                <h1 class="text-xl">Twitter</h1>
+            </div>
+        </Card>
+        <Card on:click={() => window.open("https://github.com/" + PUBLIC_GITHUB_USERNAME)} classes="cursor-pointer">
+            <div class="content flex justify-center items-center gap-3 flex-col p-10">
+                <div class="w-8 h-8 relative isolate">
+                    <img src="/github.svg" class="w-8" alt="github" />
+                    <img src="/github.svg" class="w-8 absolute top-0 left-0 -z-1" style={`filter: blur(10px);`} alt="github" />
+                </div>
+                <h1 class="text-xl">Github</h1>
+            </div>
+        </Card>
     </div>
 </div>
+
+
+<style lang="postcss">
+
+</style>
