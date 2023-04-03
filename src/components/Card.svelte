@@ -9,9 +9,13 @@
     const nr: {
         mousePos?: { x: number; y: number };
         hover?: boolean;
+        inPhone?: boolean;
     } = {};
 
     function updateDimension() {
+
+        if (nr.inPhone) return;
+
         const { top, left, width, height } = card.getBoundingClientRect();
 
         card.style.setProperty("--oX", `${left}px`);
@@ -53,6 +57,9 @@
     }
 
     onMount(async () => {
+        
+        nr.inPhone = window.innerWidth < 768;
+
         updateDimension();
 
         card.addEventListener("mousemove", onMouseMove);
