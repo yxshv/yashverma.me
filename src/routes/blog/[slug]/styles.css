@@ -42,7 +42,7 @@ pre {
 }
 
 h1, h2, h3, h4, h5, h6 {
-    @apply font-bold ;
+    @apply font-bold;
     font-size: xx-large !important;
 }
 
