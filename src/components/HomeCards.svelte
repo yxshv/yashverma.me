@@ -38,7 +38,7 @@
             class="lg:w-[56%] flex gap-8 justify-center flex-wrap flex-col lg:flex-nowrap content-stretch items-stretch"
         >
             <div class="flex justify-center gap-8 items-stretch flex-wrap lg:flex-nowrap content-center">
-                <Card>
+                <Card on:click={() => window.location.href = "/projects"} classes="cursor-pointer">
                     <div
                         class="content px-5 pt-4  flex justify-center item-center flex-col"
                     >

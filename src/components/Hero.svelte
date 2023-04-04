@@ -200,7 +200,7 @@
         <div class="grid-overlay"><div class="fade-out" /></div>
 
         <BackToHome />
-        <div class="text-center me">
+        <div class="text-center me" style="text-shadow: 0px 0px 100px white;">
             <p class="text-3xl hidden lg:block font-semibold">
                 Hey
                 <svg
