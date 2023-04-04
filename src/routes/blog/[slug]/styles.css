@@ -1,0 +1,54 @@
+
+pre > code {
+    border: 1px solid #474466;
+    background: #1B1B31 !important;
+
+    @apply rounded-b-md font-semibold scrollbar-thin scrollbar-thumb-[#474466] scrollbar-track-[#1B1B31];
+
+    font-family: 'DankMono', sans-serif !important;
+}
+
+* {
+    font-family: 'Satoshi', sans-serif;
+}
+
+pre {
+    margin-top: 0 !important;
+    padding: 0 !important;
+    font-family: 'DankMono', sans-serif !important;
+}
+
+.rehype-code-title {
+    @apply text-[.85rem] flex items-center py-3 pb-2 px-5 font-semibold rounded-t-md border bg-[#1B1B31] border-b-0 border-[#474466];  
+    /* font-family: 'DankMono', sans-serif !important; */
+}
+
+h1, h2, h3, h4, h5, h6 {
+    @apply font-bold;
+}
+
+blockquote {
+    border: 1px solid #474466;
+    background: #1B1B31 !important;
+
+    position: relative !important;
+    padding: 10px !important;
+    margin: 0 !important;
+    padding-left: 1.5rem !important;
+    
+    @apply rounded-r-md;
+}
+
+blockquote > p {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+blockquote::before {
+    content: "";
+    @apply absolute top-0 left-0 bg-[#474466] w-[5px] h-full;
+}
+
+img {
+    @apply rounded-md w-full;
+}

@@ -7,7 +7,6 @@
 	src: url(/archia-regular-webfont.woff2);
 }
 
-
 * {
     margin: 0;
     padding: 0;
@@ -87,18 +86,12 @@ body {
 		0 0 120px rgb(255 255 255 / 0.5);
 }
 
-.rose {
-	@apply border-rose-600 bg-rose-500/20 text-rose-500;
+@font-face {
+	font-family: Satoshi;
+	src: url(/Satoshi-Variable.woff2);
 }
 
-.green {
-	@apply border-green-600 bg-green-500/20 text-green-500;
-}
-
-.yellow {
-	@apply border-yellow-600 bg-yellow-500/20 text-yellow-500;
-}
-
-.blue {
-	@apply border-blue-600 bg-blue-500/20 text-blue-500;
+@font-face {
+	font-family: DankMono;
+	src: url(/Dank\ Mono\ Regular.otf);
 }
