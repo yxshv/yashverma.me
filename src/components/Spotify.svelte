@@ -17,8 +17,8 @@
 
 <Card on:click={() => {
     window.open("https://open.spotify.com/track/" + $presence?.spotify.track_id)
-}} classes="w-full aspect-[1] lg:flex-1 cursor-pointer">
-    <div class="content min-w-[70%] flex justify-center item-center gap-3 flex-col">
+}} classes="w-full lg:aspect-[1] lg:flex-1 cursor-pointer">
+    <div class="content py-5 lg:py-0 min-w-[70%] flex justify-center item-center gap-3 flex-col">
         <div class="flex justify-center items-center gap-2">
             {#if $presence?.listening_to_spotify}
                 <img src={$presence?.spotify.album_art_url} class="w-20" alt="spotify" />
