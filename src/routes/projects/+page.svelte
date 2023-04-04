@@ -142,7 +142,7 @@
                         </div>
                         {#if (card?.collabs ?? []).length > 0}
                             <div
-                                class="flex justify-start items-center text-xs flex-wrap gap-1 mt-1"
+                                class="flex justify-start items-center text-xs flex-wrap gap-1 mt-2"
                             >
                                 <span class="opacity-75">In Collaboration with -</span> 
                                 {#each (card.collabs ?? []) as collaborator, index}
