@@ -10,8 +10,8 @@
 </script>
 
 <div class="flex justify-center items-center">
-    <article class="text-white prose-slate prose-lg w-screen lg:w-[50vw] px-6">
-        <div />
+    <article class="text-white prose-slate prose-lg py-10 w-screen lg:w-[50vw] px-6">
+        <div class="h-[1px] w-full bg-outline" />
         {@html data.post}
     </article>
 </div>
