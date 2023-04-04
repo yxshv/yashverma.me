@@ -18,6 +18,13 @@
 
     const cards: Card[] = [
         {
+            title: "React",
+            description: "A JavaScript library for building user interfaces",
+            image: "/techstack/react.svg",
+            link: "https://react.dev/",
+            type: ["UI FRAMEWORK"]
+        },
+        {
             title: "Next.js",
             description: "The React Framework for Production",
             image: "/techstack/next.svg",
@@ -29,6 +36,13 @@
             description: "Svelte is a javascript web framework which is similar to React, rerendering on state changes",
             image: "/techstack/svelte.svg",
             link: "https://svelte.dev/",
+            type: ["UI FRAMEWORK"]
+        },
+        {
+            title: "SvelteKit",
+            description: "SvelteKit is a framework for rapidly developing robust, performant web applications using Svelte.",
+            image: "/techstack/sveltekit.svg",
+            link: "https://kit.svelte.dev/",
             type: ["WEB FRAMEWORK"]
         },
         {
@@ -45,13 +59,13 @@
             link: "https://prisma.io/",
             type: ["DATABASE", "ORM"]
         },
-        {
-            title: "Auth.js",
-            description: "Auth.js is an open-source authentication solution for web applications. Implement OAuth in your websites in seconds!",
-            image: "/techstack/auth.webp",
-            link: "https://authjs.dev",
-            type: ["AUTHENTICATION"]
-        },
+        // {
+        //     title: "Auth.js",
+        //     description: "Auth.js is an open-source authentication solution for web applications. Implement OAuth in your websites in seconds!",
+        //     image: "/techstack/auth.webp",
+        //     link: "https://authjs.dev",
+        //     type: ["AUTHENTICATION"]
+        // },
         {
             title: "Typescript",
             description: "TypeScript is a strongly typed programming language that builds on JavaScript, giving you better tooling at any scale.",
@@ -60,18 +74,18 @@
             type: ["LANGUAGE"]
         },
         {
-            title: "PlanetScale",
-            description: "PlanetScale is the world's most advanced serverless MySQL platform.",
-            image: "/techstack/pscale.svg",
-            link: "https://planetscale.com/",
-            type: ["DATABASE"]
+            title: "Python",
+            description: "Python is a high-level, general-purpose programming language. Its design philosophy emphasizes code readability with the use of significant indentation via the off-side rule",
+            image: "/techstack/python.svg",
+            link: "https://python.org/",
+            type: ["LANGUAGE"]
         },
         {
             title: "Go-Fiber",
             description: "Fiber is an express.js-inspired web framework for Go, its built on top of Fasthttp, the fastest HTTP engine for Go",
             image: "/techstack/gofiber.svg",
             link: "https://gofiber.io/",
-            type: ["HTTP FRAMEWORK"]
+            type: ["WEB FRAMEWORK"]
         },
         {
             title: "Spline",
