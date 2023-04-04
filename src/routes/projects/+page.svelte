@@ -112,7 +112,7 @@
                         <img
                             src={card.image}
                             alt={card.title}
-                            class=" aspect-[16/9] object-cover rounded-3xl"
+                            class=" object-cover rounded-3xl"
                         />
                     </a>
                     <div class="">
