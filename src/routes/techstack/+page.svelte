@@ -14,7 +14,7 @@
         type?: string[];
     }
 
-    const allColors = ["rose", "green", "blue", "yellow"];
+    const allColors = ["rose", "yellow", "blue", "green"];
 
     const cards: Card[] = [
         {
@@ -22,72 +22,77 @@
             description: "The React Framework for Production",
             image: "/techstack/next.svg",
             link: "https://nextjs.org/",
+            type: ["WEB FRAMEWORK"]
         },
         {
             title: "Svelte",
-            description: "Svelte a javascript web framework which is kinda similar to React, rerendering on state changes",
+            description: "Svelte is a javascript web framework which is similar to React, rerendering on state changes",
             image: "/techstack/svelte.svg",
             link: "https://svelte.dev/",
+            type: ["WEB FRAMEWORK"]
         },
         {
             title: "TailwindCSS",
             description: "TailwindCSS is utility-first CSS framework packed with classes, So you'll never need to touch CSS",
             image: "/techstack/tailwind.svg",
             link: "https://tailwindcss.com/",
+            type: ["DESIGN","CSS FRAMEWORK"]
         },
         {
             title: "Prisma",
             description: "Prisma is a ORM that allows you make request to your database without writing SQL queries",
             image: "/techstack/prisma.svg",
             link: "https://prisma.io/",
+            type: ["DATABASE", "ORM"]
         },
         {
             title: "Auth.js",
             description: "Auth.js is an open-source authentication solution for web applications. Implement OAuth in your websites in seconds!",
             image: "/techstack/auth.webp",
             link: "https://authjs.dev",
+            type: ["AUTHENTICATION"]
         },
         {
             title: "Typescript",
             description: "TypeScript is a strongly typed programming language that builds on JavaScript, giving you better tooling at any scale.",
             image: "/techstack/ts.svg",
             link: "https://typescriptlang.org/",
+            type: ["LANGUAGE"]
         },
         {
             title: "PlanetScale",
             description: "PlanetScale is the world's most advanced serverless MySQL platform.",
             image: "/techstack/pscale.svg",
             link: "https://planetscale.com/",
-        },
-        {
-            title: "Typescript",
-            description: "TypeScript is a strongly typed programming language that builds on JavaScript, giving you better tooling at any scale.",
-            image: "/techstack/ts.svg",
-            link: "https://typescriptlang.org/",
+            type: ["DATABASE"]
         },
         {
             title: "Go-Fiber",
             description: "Fiber is an express.js-inspired web framework for Go, its built on top of Fasthttp, the fastest HTTP engine for Go",
             image: "/techstack/gofiber.svg",
             link: "https://gofiber.io/",
+            type: ["HTTP FRAMEWORK"]
         },
         {
             title: "Spline",
-            description: "Spline web-based, collaborative 3D editor, Create amazing 3D art with an easy to use editor and embed them into your website with just one line of code.",
+            description: "Spline is a web-based, 3D collaborative editor allowing you to create amazing 3D art with an easy to use editor and embeding them into your website with a single line of code.",
             image: "/techstack/spline.png",
             link: "https://spline.design/",
+            type: ["3D"]
         },
         {
             title: "Umami",
-            description:"Umami is an open source, privacy-focusedalternative to Google Analytics.",
+            description:"Umami is an open source, privacy-focused alternative to Google Analytics.",
             image: "/techstack/umami.svg",
-            link: "https://umami.is/", 
+            link: "https://umami.is/",
+            type: ["ANALYTICS"]
         },
         {
             title: "Vercel",
             description: "Vercel is the platform for frontend developers, providing the speed and reliability innovators need to create at the moment of inspiration.",
             image: "/techstack/vercel.svg",
             link: "https://vercel.com/",
+            type: ["HOSTING"]
         }
     ];
 </script>
@@ -111,26 +116,23 @@
         </div>
     </div>
 
-    <div class="p-10 flex justify-center items-center flex-wrap lg:p-28 gap-5">
+    <div class="p-10 flex justify-center items-center flex-wrap lg:p-24 gap-8">
         {#each cards as card}
-            <Card on:click={() => window.open(card.link, "_blank")}>
+            <Card on:click={() => window.open(card.link, "_blank")} classes="cursor-pointer aspect-[1] lg:w-[350px] ">
                 <div
-                    class="content flex gap-3 p-1 items-start justify-center flex-col max-w-[20rem]"
+                    class="content flex gap-3 p-1 items-center text-center justify-center flex-col max-w-[20rem]"
                 >
-                    <div class="bg-[#2B2E4F] p-5 aspect-[1]">
+                    <div class="bg-[#2B2E4F] p-5 flex rounded-xl border border-[#474466] justify-center items-center aspect-[1]">
                         <img
                             src={card.image}
                             alt={card.title}
-                            class="w-10 rounded-sm"
+                            class="w-10"
                         />
                     </div>
                     <div class="">
-                        <a
-                            href={card.link} target="_blank" 
-                            class="pl-2 text-2xl font-semibold underline decoration-transparent underline-offset-4 hover:decoration-white"
-                        >
+                        <h1 class="pl-2 text-2xl font-semibold">
                             {card.title}
-                        </a>
+                        </h1>
                         <p class="pl-2 mt-1 text-sm opacity-[0.8]">
                             {card.description}
                         </p>
@@ -138,7 +140,7 @@
                     <div
                         class="pl-2"
                     >
-                        <div class="flex justify-start items-center flex-wrap gap-1 ">
+                        <div class="flex justify-center items-center flex-wrap gap-1 ">
                             {#each card?.type ?? [] as type, index}
                                 <div
                                     class={`rounded-md border ${
@@ -148,26 +150,7 @@
                                     {type}
                                 </div>
                             {/each}
-                        <!-- </div>
-                        {#if (card?.collabs ?? []).length > 0}
-                            <div
-                                class="flex justify-start items-center text-xs flex-wrap gap-1 mt-2"
-                            >
-                                <span class="opacity-75">In Collaboration with -</span> 
-                                {#each (card.collabs ?? []) as collaborator, index}
-                                    <a
-                                        href={collaborator.link}
-                                        target="_blank"
-                                        class={`rounded-full gap-1 flex justify-center items-center border ${
-                                            allColors[index % allColors.length]
-                                        } font-semibold p-[2px] `}
-                                    >
-                                        <img class="w-5 h-5 rounded-full" src={collaborator.pfp} alt={collaborator.name}>
-                                        {collaborator.name}
-                                    </a>
-                                {/each}
-                            </div>
-                        {/if} -->
+                        </div>
                     </div>
                 </div>
             </Card>

@@ -54,7 +54,7 @@
                         </div>
                     </div>
                 </Card>
-                <Card classes="fade">
+                <Card on:click={() => window.location.href = "/techstack"} classes="fade cursor-pointer">
                     <div
                         class="content px-5 pt-4 flex justify-center item-center flex-col"
                     >

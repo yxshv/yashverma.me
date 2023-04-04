@@ -154,7 +154,6 @@
                                         } font-semibold p-[2px] `}
                                     >
                                         <img class="w-5 h-5 rounded-full" src={collaborator.pfp} alt={collaborator.name}>
-                                        <!-- {collaborator.name} -->
                                     </a>
                                 {/each}
                             </div>
