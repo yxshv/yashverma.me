@@ -92,7 +92,7 @@
 
     .seek::before {
         content: '';
-        @apply absolute top-1/2 right-0 w-[8px] h-[8px] rounded-full bg-white;
+        @apply absolute top-1/2 right-0 w-[10px] h-[10px] rounded-full bg-white;
         transform: translate(50%, -50%);
     }
 
