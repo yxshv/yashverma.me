@@ -41,7 +41,7 @@
         {
             title: "SvelteKit",
             description: "SvelteKit is a framework for rapidly developing robust, performant web applications using Svelte.",
-            image: "/techstack/sveltekit.svg",
+            image: "/techstack/svelte.svg",
             link: "https://kit.svelte.dev/",
             type: ["WEB FRAMEWORK"]
         },
@@ -81,6 +81,20 @@
             type: ["LANGUAGE"]
         },
         {
+            title: "GoLang",
+            description: "Go is a statically typed, compiled high-level programming language designed at Google.",
+            image: "/techstack/golang.svg",
+            link: "https://go.dev/",
+            type: ["LANGUAGE"]
+        },
+        {
+            title: "Rust",
+            description: "Rust is a multi-paradigm, high-level, general-purpose programming language which emphasizes performance, type safety, and concurrency.",
+            image: "/techstack/rust.svg",
+            link: "https://rust-lang.org/",
+            type: ["LANGUAGE"]
+        },
+        {
             title: "Go-Fiber",
             description: "Fiber is an express.js-inspired web framework for Go, its built on top of Fasthttp, the fastest HTTP engine for Go",
             image: "/techstack/gofiber.svg",
@@ -95,19 +109,12 @@
             type: ["3D"]
         },
         {
-            title: "Umami",
-            description:"Umami is an open source, privacy-focused alternative to Google Analytics.",
-            image: "/techstack/umami.svg",
-            link: "https://umami.is/",
-            type: ["ANALYTICS"]
+            title: "Git",
+            description: "Git is a free and open source distributed version control system designed to handle everything from small to very large projects with speed and efficiency.",
+            image: "/techstack/git.svg",
+            link: "https://git-scm.com/",
+            type: ["VERSION CONTROL"]
         },
-        {
-            title: "Vercel",
-            description: "Vercel is the platform for frontend developers, providing the speed and reliability innovators need to create at the moment of inspiration.",
-            image: "/techstack/vercel.svg",
-            link: "https://vercel.com/",
-            type: ["HOSTING"]
-        }
     ];
 </script>
 
@@ -171,32 +178,3 @@
         {/each}
     </div>
 </div>
-
-<style lang="postcss">
-    .outline-text {
-        --spread: 1.15px;
-        --color: rgb(255, 255, 255, 0.7);
-
-        text-shadow: var(--spread) var(--spread) 0px var(--color),
-            calc(-1 * var(--spread)) calc(-1 * var(--spread)) 0px var(--color),
-            calc(-1 * var(--spread)) var(--spread) 0px var(--color),
-            var(--spread) calc(-1 * var(--spread)) 0px var(--color),
-            0 0 120px rgb(255 255 255 / 0.5);
-    }
-
-    .rose {
-        @apply border-rose-600 bg-rose-500/20 text-rose-500;
-    }
-
-    .green {
-        @apply border-green-600 bg-green-500/20 text-green-500;
-    }
-
-    .yellow {
-        @apply border-yellow-600 bg-yellow-500/20 text-yellow-500;
-    }
-
-    .blue {
-        @apply border-blue-600 bg-blue-500/20 text-blue-500;
-    }
-</style>

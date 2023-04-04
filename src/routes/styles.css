@@ -76,6 +76,29 @@ body {
 	);
 }
 
-.equal {
-	@apply flex-[1_1_0px];
+.outline-text {
+	--spread: 1.15px;
+	--color: rgb(255, 255, 255, 0.7);
+
+	text-shadow: var(--spread) var(--spread) 0px var(--color),
+		calc(-1 * var(--spread)) calc(-1 * var(--spread)) 0px var(--color),
+		calc(-1 * var(--spread)) var(--spread) 0px var(--color),
+		var(--spread) calc(-1 * var(--spread)) 0px var(--color),
+		0 0 120px rgb(255 255 255 / 0.5);
+}
+
+.rose {
+	@apply border-rose-600 bg-rose-500/20 text-rose-500;
+}
+
+.green {
+	@apply border-green-600 bg-green-500/20 text-green-500;
+}
+
+.yellow {
+	@apply border-yellow-600 bg-yellow-500/20 text-yellow-500;
+}
+
+.blue {
+	@apply border-blue-600 bg-blue-500/20 text-blue-500;
 }
