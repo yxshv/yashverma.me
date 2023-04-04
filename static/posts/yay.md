@@ -2,7 +2,7 @@ In this blog post we will recreate windows 10 start menu's button hover effects,
 
 you can try the final result on codepen - 
 
-{% codepen https://codepen.io/yxshv/pen/JjaRZmb %}
+<!-- @embed:https://codepen.io/yxshv/pen/JjaRZmb -->
 
 # 1. Create a card with basic stylings.
 
@@ -190,7 +190,7 @@ first of all you need another element with a class `.fakeblob` -
 }
 ```
 
-we just need this because we need the original position of the blob, and thats why its `display: hidden;`.
+we just need this because we need the original position of the blob, and thats why its `display: hidden;`
 
 But why can't we save the original in a JS variable, and use it later on? We can't because the blob's original position might change like on scroll and zoom in/out, so we used a fakeblob.
 
@@ -198,13 +198,13 @@ But why can't we save the original in a JS variable, and use it later on? We can
 
 First of all we will fetch all our card elements and save it in a variable -
 
-```js:index.js
+```js:inde.
 const allCards = document.querySelectorAll(".card");
 ```
 
 Then we will add add an eventListener, which will listen to mouse movement, inside it we will loop through all of the cards and fetch its `.blob` and `.fakeblob` childrens - 
 
-```js:index.js
+```js:inde.
 window.addEventListener("mousemove", (ev) => {
   
   allCards.forEach((e) => {
@@ -216,7 +216,7 @@ window.addEventListener("mousemove", (ev) => {
 
 then we will [`getBoundingClientRect()`](https://developer.mozilla.org/en-US/docs/Web/API/Element/getBoundingClientRect) of the `fakeblob` which will return an object providing information about the size of an element and its position relative to the viewport - 
 
-```js:index.js
+```js:inde.
 allCards.forEach((e) => {
   const blob = e.querySelector(".blob");
   const fblob = e.querySelector(".fakeblob");
@@ -227,7 +227,7 @@ allCards.forEach((e) => {
 
 now we will animate the `blob` using the [web animation api](https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API) - 
 
-```js:index.js
+```js:inde.
 blob.animate(
   [{
       transform: `translate(${ev.clientX - rec.left - (rec.width / 2)}px,${ev.clientY - rec.top - (rec.height / 2)}px)`,

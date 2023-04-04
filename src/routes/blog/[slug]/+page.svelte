@@ -10,7 +10,8 @@
 </script>
 
 <div class="flex justify-center items-center">
-    <div class="text-white prose-slate lg:prose-lg w-[50vw] px-6">
+    <article class="text-white prose-slate prose-lg w-screen lg:w-[50vw] px-6">
+        <div />
         {@html data.post}
-    </div>
+    </article>
 </div>

@@ -1,14 +1,23 @@
 
-pre > code {
+pre code {
     border: 1px solid #474466;
     background: #1B1B31 !important;
 
-    @apply rounded-b-md font-semibold scrollbar-thin scrollbar-thumb-[#474466] scrollbar-track-[#1B1B31];
+    @apply rounded-b-md font-semibold scrollbar-thin scrollbar-thumb-outline scrollbar-track-bg;
+}
 
+code {
     font-family: 'DankMono', sans-serif !important;
 }
 
-* {
+:not(pre:has(code)) > code {
+    border: 1px solid #474466;
+    background: #1B1B31 !important;
+
+    @apply rounded-md px-2 inline-block;
+}
+
+article {
     font-family: 'Satoshi', sans-serif;
 }
 
@@ -19,12 +28,30 @@ pre {
 }
 
 .rehype-code-title {
-    @apply text-[.85rem] flex items-center py-3 pb-2 px-5 font-semibold rounded-t-md border bg-[#1B1B31] border-b-0 border-[#474466];  
-    /* font-family: 'DankMono', sans-serif !important; */
+    @apply text-[.85rem] text-white/80 flex items-center py-3 pb-2 px-5 font-semibold rounded-t-md border bg-bg border-b-0 border-outline;  
+}
+
+.rehype-code-title::before {
+    content: "";
+    background-image: url(/file.svg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+
+    @apply h-4 mr-1 aspect-square opacity-80;
 }
 
 h1, h2, h3, h4, h5, h6 {
-    @apply font-bold;
+    @apply font-bold ;
+    font-size: xx-large !important;
+}
+
+/* if mobile */
+@media (max-width: 640px) {
+    h1, h2, h3, h4, h5, h6 {
+        @apply font-bold;
+        font-size: x-large !important;
+    }
 }
 
 blockquote {
@@ -46,9 +73,13 @@ blockquote > p {
 
 blockquote::before {
     content: "";
-    @apply absolute top-0 left-0 bg-[#474466] w-[5px] h-full;
+    @apply absolute top-0 left-0 bg-outline w-[5px] h-full;
 }
 
 img {
     @apply rounded-md w-full;
+}
+
+iframe {
+    @apply rounded-md w-full aspect-[16/9];
 }

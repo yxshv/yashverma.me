@@ -1,6 +1,4 @@
-import { marked } from 'marked'; // import the marked lib
 import type { PageLoad } from './$types';
-import hljs from "highlight.js"
 import { unified } from "unified";
 import remarkParse from 'remark-parse'
 import remarkRehype from 'remark-rehype'
@@ -11,6 +9,7 @@ import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypeHighLight from "rehype-highlight"
 import rehypeCodeTitles from "rehype-code-titles";
 import remarkGFM from "remark-gfm";
+import remarkEmbed from 'remark-embed';
 
 export const load: PageLoad = async ({ fetch, params }) => {
   const slug = params['slug'];
@@ -21,6 +20,7 @@ export const load: PageLoad = async ({ fetch, params }) => {
     .use(remarkParse)
     .use(remarkRehype)
     .use(rehypeDocument)
+    .use(remarkEmbed)
     .use(rehypeFormat)
     .use(rehypeStringify)
     .use(rehypeAutolinkHeadings)

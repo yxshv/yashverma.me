@@ -17,7 +17,7 @@
                         <div class="map relative">
                             <img class="" alt="bhopal map" src="/map.png" />
                             <div
-                                class="logo absolute rounded-full bg-[#1B1B31] p-[3px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+                                class="logo absolute rounded-full bg-bg p-[3px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
                             >
                                 <img
                                     class="w-8 rounded-full"

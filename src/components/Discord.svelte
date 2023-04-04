@@ -93,7 +93,7 @@
     .avatar::before {
         content: "";
 
-        @apply absolute bg-[#1B1B31] bottom-0 right-0 w-5 h-5 rounded-full -translate-x-1 -translate-y-1;
+        @apply absolute bg-bg bottom-0 right-0 w-5 h-5 rounded-full -translate-x-1 -translate-y-1;
     }
 
     .avatar::after {

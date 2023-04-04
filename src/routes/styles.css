@@ -95,3 +95,8 @@ body {
 	font-family: DankMono;
 	src: url(/Dank\ Mono\ Regular.otf);
 }
+
+@font-face {
+	font-family: Hack;
+	src: url(/hack-regular-subset.woff2);
+}

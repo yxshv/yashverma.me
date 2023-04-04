@@ -143,7 +143,7 @@
                 <div
                     class="content flex gap-3 p-1 items-center text-center justify-center flex-col max-w-[20rem]"
                 >
-                    <div class="bg-[#2B2E4F] p-5 flex rounded-xl border border-[#474466] justify-center items-center aspect-[1]">
+                    <div class="bg-[#2B2E4F] p-5 flex rounded-xl border border-outline justify-center items-center aspect-[1]">
                         <img
                             src={card.image}
                             alt={card.title}
