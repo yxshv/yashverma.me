@@ -2,14 +2,20 @@
     import BackToHome from "../../components/BackToHome.svelte";
 
 </script>
-<div class="lg:p-20 p-10 relative text-[#9DA8C2]">
+<div class="relative text-[#9DA8C2]">
     <div class="overlay"><div class="fade-out" /></div>
-    <BackToHome classes="mt-10" />
+    <div class="h-screen w-full flex justify-center items-center flex-col gap-10">
+        <BackToHome />
+        
+        <div>
+            <h1 class="relative isolate text-6xl lg:text-8xl font-bold text-center w-full outline-text">PROJECTS</h1>
+            <p class="text-center w-full mt-2 font-semibold text-xl">Things I have built so far</p>
+        </div>
+    </div>
 
-    <h1 class="mt-20 relative isolate text-6xl lg:text-8xl font-bold text-center w-full outline-text">PROJECTS</h1>
-    <p class="text-center w-full mt-2 font-semibold text-xl">Things I have built so far</p>
-
-    
+    <div class="">
+        s
+    </div>
 </div>
 
 
