@@ -1,5 +1,6 @@
 <script lang="ts">
     import { onMount } from "svelte";
+    import BackToHome from "./BackToHome.svelte";
 
     interface Card {
         title: string;
@@ -196,16 +197,7 @@
         bind:this={intro}
         class="aboutme fixed flex justify-center gap-10 lg:justify-between flex-col items-center z-1 p-8 lg:p-16 top-0 w-screen h-full bg-[#131325]"
     >
-        <div
-            class="flex gap-2 font-bold p-3 py-2 pr-4 rounded-full bg-white/10 justify-center items-center"
-        >
-            <img
-                src="/logo.jpg"
-                class="w-8 h-8 rounded-full"
-                alt="Yash"
-            />
-            yxshv
-        </div>
+        <BackToHome />
         <div class="text-center me">
             <p class="text-3xl hidden lg:block font-semibold">
                 Hey
@@ -266,16 +258,7 @@
     <div
         class="flex isolate justify-center relative py-28 gap-10 lg:justify-between flex-col items-center z-1 p-8 lg:p-16 top-0 w-screen h-full bg-[#101217]"
     >
-        <div
-            class="flex gap-2 font-bold p-3 py-2 pr-4 rounded-full bg-white/10 justify-center items-center"
-        >
-            <img
-                src="/logo.jpg"
-                class="w-8 h-8 rounded-full"
-                alt="Yash"
-            />
-            yxshv
-        </div>
+        <BackToHome />
         <div class="text-center me">
             <p class="text-2xl lg:hidden font-semibold">
                 Hey
