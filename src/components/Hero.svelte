@@ -197,6 +197,8 @@
         bind:this={intro}
         class="aboutme fixed flex justify-center gap-10 lg:justify-between flex-col items-center z-1 p-8 lg:p-16 top-0 w-screen h-full bg-[#131325]"
     >
+        <div class="grid-overlay"><div class="fade-out" /></div>
+
         <BackToHome />
         <div class="text-center me">
             <p class="text-3xl hidden lg:block font-semibold">

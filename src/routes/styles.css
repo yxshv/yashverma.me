@@ -60,3 +60,18 @@ body {
 		transform: translateY( calc(0.8*var(--size)) );
 	}
 }
+
+.grid-overlay {
+	@apply absolute z-[-1] top-0 left-0 w-full h-screen opacity-50;
+	background-image: url(/grid.svg);
+}
+
+.grid-overlay .fade-out {
+	@apply absolute z-[10] top-0 left-0 w-full h-screen;
+	background-image: radial-gradient(
+		circle,
+		transparent 0%,
+		#131325 60%,
+		#131325 100%
+	);
+}

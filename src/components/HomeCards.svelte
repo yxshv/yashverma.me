@@ -1,7 +1,7 @@
 <script lang="ts">
     import Card from "./Card.svelte";
     import Spotify from "./Spotify.svelte";
-    import "./cards.css";
+    import "../cards.css";
     import Discord from "./Discord.svelte";
 
     import { PUBLIC_TWITTER_USERNAME, PUBLIC_GITHUB_USERNAME } from "$env/static/public"
