@@ -72,7 +72,7 @@
                 </Card>
             </div>
             <div class="flex justify-center gap-8 items-stretch flex-wrap lg:flex-nowrap content content-center">
-                <Card classes="flex-1 aspect-[1]">
+                <Card on:click={() => window.location.href = "/blog"} classes="flex-1 aspect-[1]">
                     <div
                         class="content px-5 pt-4 flex justify-center item-center flex-col"
                     >

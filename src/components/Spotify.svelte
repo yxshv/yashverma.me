@@ -35,7 +35,7 @@
                     <div />
                     <img src="/spotify.svg" alt="spotify" />
                 </div>
-                <div class="flex justify-center flex-col">
+                <div class="flex justify-center text-left flex-col">
                     <h1 class="text-lg font-semibold">Nothings playing</h1>
                     <p class="text-md opacity-75">right now</p>
                 </div>
