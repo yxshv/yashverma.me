@@ -1,4 +1,18 @@
 
+.notPublished {
+
+    --border: #F43F5E;
+    
+    margin-bottom: 2rem !important;
+    @apply text-[0.9rem] font-semibold;
+}
+
+.four04 {
+    font-size: 200px !important;
+    margin-top: 5rem !important;
+    @apply font-bold text-center;
+}
+
 pre code {
     border: 1px solid #474466;
     background: #1B1B31 !important;
@@ -51,8 +65,11 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 blockquote {
-    border: 1px solid #474466;
-    background: #1B1B31 !important;
+    --color: #1B1B31;
+    --border: #474466;
+
+    border: 1px solid var(--border);
+    background: var(--color) !important;
 
     position: relative !important;
     padding: 10px !important;
@@ -69,7 +86,7 @@ blockquote > p {
 
 blockquote::before {
     content: "";
-    @apply absolute top-0 left-0 bg-outline w-[5px] h-full;
+    @apply absolute top-0 left-0 bg-[var(--border)] w-[5px] h-full;
 }
 
 img {
@@ -99,6 +116,10 @@ a {
     .title {
         font-size: 2rem !important;
         @apply font-extrabold;
+    }
+
+    .four04 {
+        font-size: 100px !important;
     }
 }
 

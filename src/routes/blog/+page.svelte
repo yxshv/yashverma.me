@@ -83,6 +83,7 @@
     ];
 </script>
 
+
 <div class="relative text-[#9DA8C2]">
     <div class="grid-overlay"><div class="fade-out" /></div>
     <div
@@ -94,10 +95,10 @@
             <h1
                 class="relative isolate text-6xl lg:text-8xl font-bold text-center w-full outline-text"
             >
-                BLOGS
+                PROJECTS
             </h1>
             <p class="text-center w-full mt-2 font-semibold text-xl">
-                Sharing things that I learnt
+                Things I have built so far
             </p>
         </div>
     </div>
@@ -106,7 +107,7 @@
         {#each cards as card}
             <Card>
                 <div
-                    class="content flex gap-3 p-1 items-start justify-center flex-col max-w-[20rem]"
+                    class="content flex gap-3 p-1 items-start text-left justify-center flex-col max-w-[20rem]"
                 >
                     <a href={card.link} target="_blank">
                         <img
@@ -145,12 +146,12 @@
                                 class="flex justify-start items-center text-xs flex-wrap gap-1 mt-2"
                             >
                                 <span class="opacity-75">In Collaboration with -</span> 
-                                {#each (card.collabs ?? []) as collaborator, index}
+                                {#each (card.collabs ?? []) as collaborator, i}
                                     <a
                                         href={collaborator.link}
                                         target="_blank"
                                         class={`rounded-full gap-1 flex justify-center items-center border ${
-                                            allColors[index % allColors.length]
+                                            allColors[i % allColors.length]
                                         } font-semibold p-[2px] `}
                                     >
                                         <img class="w-5 h-5 rounded-full" src={collaborator.pfp} alt={collaborator.name}>
@@ -164,3 +165,4 @@
         {/each}
     </div>
 </div>
+

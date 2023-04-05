@@ -106,7 +106,7 @@
         {#each cards as card}
             <Card>
                 <div
-                    class="content flex gap-3 p-1 items-start justify-center flex-col max-w-[20rem]"
+                    class="content flex gap-3 p-1 items-start text-left justify-center flex-col max-w-[20rem]"
                 >
                     <a href={card.link} target="_blank">
                         <img
@@ -145,12 +145,12 @@
                                 class="flex justify-start items-center text-xs flex-wrap gap-1 mt-2"
                             >
                                 <span class="opacity-75">In Collaboration with -</span> 
-                                {#each (card.collabs ?? []) as collaborator, index}
+                                {#each (card.collabs ?? []) as collaborator, i}
                                     <a
                                         href={collaborator.link}
                                         target="_blank"
                                         class={`rounded-full gap-1 flex justify-center items-center border ${
-                                            allColors[index % allColors.length]
+                                            allColors[i % allColors.length]
                                         } font-semibold p-[2px] `}
                                     >
                                         <img class="w-5 h-5 rounded-full" src={collaborator.pfp} alt={collaborator.name}>
