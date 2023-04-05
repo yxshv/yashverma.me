@@ -7,7 +7,7 @@ First create a repository. its need to public, then go the [website](https://blo
 ## Attributes
 You can add attributes like this
 
-```yaml
+```yaml:blog.md
 data:
   - title: Blog Title
   - dsc: Blog Description
@@ -23,7 +23,7 @@ data:
 ## Comments
 
 Now at the bottom of the blog u might see an error
-```
+```bash:error
 giscus not installed on this repository
 ```
 This is because giscus is not set up
