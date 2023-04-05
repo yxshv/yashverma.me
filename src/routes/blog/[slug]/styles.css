@@ -6,6 +6,10 @@ pre code {
     @apply rounded-b-md scrollbar-thin scrollbar-thumb-outline scrollbar-track-bg;
 }
 
+pre code::-webkit-scrollbar-thumb {
+    @apply rounded-xl;
+}
+
 code {
     font-family: 'DankMono', sans-serif !important;
 }

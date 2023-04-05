@@ -2,6 +2,7 @@
     import "./styles.css";
     import "highlight.js/styles/github-dark.css"
     import Giscus from '../../../components/giscus/Giscus.svelte';
+    import BackToHome from "../../../components/BackToHome.svelte";
 
     export let data: {
         slug: string;
@@ -15,7 +16,9 @@
     };
 </script>
 
-<div class="flex justify-center items-center">
+<div class="flex justify-center items-center flex-col py-10">
+
+    <BackToHome />
     <article
         class="text-white prose-slate prose-lg py-10 w-screen lg:w-[50vw] px-6"
     >
