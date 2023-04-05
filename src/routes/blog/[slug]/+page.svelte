@@ -1,7 +1,7 @@
 <script lang="ts">
 
     import "./styles.css";
-    import "highlight.js/styles/base16/atelier-plateau.css";
+    import "highlight.js/styles/github-dark.css";
 
     export let data: {
         slug: string;

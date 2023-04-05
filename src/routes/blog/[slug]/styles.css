@@ -3,7 +3,7 @@ pre code {
     border: 1px solid #474466;
     background: #1B1B31 !important;
 
-    @apply rounded-b-md font-semibold scrollbar-thin scrollbar-thumb-outline scrollbar-track-bg;
+    @apply rounded-b-md scrollbar-thin scrollbar-thumb-outline scrollbar-track-bg;
 }
 
 code {
@@ -82,4 +82,8 @@ img {
 
 iframe {
     @apply rounded-md w-full aspect-[16/9];
+}
+
+a {
+    @apply text-blue-500 underline underline-offset-2;
 }

@@ -16,6 +16,15 @@ export const load: PageLoad = async ({ fetch, params }) => {
   const res = await fetch(`/posts/${slug}.md`);
   const post = await res.text();
 
+  if (post.trim().startsWith("---")) {
+    const modified = post.replace("---", "");
+    const [frontMatter, ...content] = modified.split("---");
+    const attrs = frontMatter.trim().split("\n");
+    console.log(frontMatter, attrs)
+  } else {
+    console.log("no")
+  }
+
   const md = await unified()
     .use(remarkParse)
     .use(remarkRehype)
@@ -28,6 +37,8 @@ export const load: PageLoad = async ({ fetch, params }) => {
     .use(rehypeHighLight)
     .use(remarkGFM)
     .process(post)
+
+
 
   return {
     slug,

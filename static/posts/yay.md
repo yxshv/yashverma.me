@@ -1,9 +1,12 @@
+---
+title: Cards mouse hover effect with CSS + JS
+image: /posts/cards.webp
+date: 22-02-23
+---
 
 In this blog post we will recreate windows 10 start menu's button hover effects,
 
-you can try the final result on codepen - 
-
-<!-- @embed:https://codepen.io/yxshv/pen/JjaRZmb -->
+you can try the final result on [codepen](https://codepen.io/yxshv/pen/JjaRZmb)
 
 # 1. Create a card with basic stylings.
 
