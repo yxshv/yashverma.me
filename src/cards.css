@@ -6,7 +6,9 @@
 
 	border: 1px solid #474466;
 
-	@apply p-4 flex bg-bg justify-center items-center relative rounded-[2.5rem] gap-5 flex-col;
+	border-radius: var(--rounded);
+
+	@apply p-4 flex bg-bg justify-center items-center relative gap-5 flex-col;
 
 	will-change: transform;
 	transition: scale 200ms ease-in-out;

@@ -13,7 +13,14 @@ import remarkEmbed from 'remark-embed';
 
 export const load: PageLoad = async ({ fetch, params }) => {
 	const slug = params['slug'];
-	const res = await fetch(`/posts/${slug}.md`);
+	let res: Response;
+	try {
+		res = await fetch(`/posts/${slug}.md`);
+	} catch {
+		return {
+			fourOfour: true,
+		};
+	}
 
 	if (res.status === 404) {
 		return {

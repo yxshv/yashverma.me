@@ -3,86 +3,36 @@
 <script lang="ts">
     import BackToHome from "../../components/BackToHome.svelte";
     import Card from "../../components/Card.svelte";
+    import { posts } from "../../stores/posts.store";
 
     import "../../cards.css";
 
     interface Card {
         title: string;
-        description: string;
         image: string;
-        link: string;
-        type?: string[];
-        collabs?: Array<{
-            name: string;
-            pfp: string;
-            link: string;
-        }>;
+        slug: string;
+        tags?: string[];
+        datePublished: Date;
+        isPublished?: boolean;
     }
+
+    const sort = (a: Card, b: Card) => {
+        return b.datePublished.getTime() - a.datePublished.getTime();
+    };
 
     const allColors = ["rose", "green", "blue", "yellow"];
 
-    const cards: Card[] = [
-        {
-            title: "LMFAO.tech",
-            description:
-                "One place for all your meme needs. Meme creator and more",
-            image: "/lmfao-tech.png",
-            link: "https://lmfao.tech",
-            type: ["WEB APP", "PWA", "TWIITER BOT"],
-            collabs: [
-                {
-                    name: "Dhravya Shah",
-                    link: "https://dhravya.dev/",
-                    pfp: "https://unavatar.io/twitter/dhravyashah",
-                }
-            ],
-        },
-        {
-            title: "Cakecutter",
-            description:
-                "Project boostrapping and setup tool. Easier than making a cake",
-            image: "/cc.png",
-            link: "https://cakes.run",
-            type: ["CLI"],
-            collabs: [
-                {
-                    name: "Dhravya Shah",
-                    link: "https://dhravya.dev/",
-                    pfp: "https://unavatar.io/twitter/dhravyashah",
-                },
-            ],
-        },
-        {
-            title: "Disco.pics",
-            description: "Free unlimited image hosting and sharing platform",
-            image: "/discopics.png",
-            link: "https://disco.pics",
-            type: ["WEB APP"],
-            collabs: [
-                {
-                    name: "Dhravya Shah",
-                    link: "https://dhravya.dev/",
-                    pfp: "https://unavatar.io/twitter/dhravyashah",
-                },
-            ],
-        },
-        {
-            title: "Req-Cool",
-            description: "A simple and easy to use free API testing tool.",
-            image: "/reqcool.png",
-            link: "https://req-cool.vercel.app",
-            type: ["WEB APP"],
-        },
-        {
-            title: "Buga-Chat",
-            description: "Completely anonymous chat app",
-            image: "/buga.png",
-            link: "https://buga-chat.vercel.app",
-            type: ["WEB APP", "WEBSOCKET", "API"],
-        },
-    ];
+    $: cards = (Object.keys($posts).map((key) => {
+        return {
+            title: $posts[key].title,
+            image: $posts[key].image,
+            slug: key,
+            tags: $posts[key].tags,
+            datePublished: $posts[key].datePublished,
+            isPublished: $posts[key].isPublished,
+        } as Card
+    })).sort(sort).filter(c => c.isPublished) as Card[];
 </script>
-
 
 <div class="relative text-[#9DA8C2]">
     <div class="grid-overlay"><div class="fade-out" /></div>
@@ -95,74 +45,50 @@
             <h1
                 class="relative isolate text-6xl lg:text-8xl font-bold text-center w-full outline-text"
             >
-                PROJECTS
+                BLOGS
             </h1>
             <p class="text-center w-full mt-2 font-semibold text-xl">
-                Things I have built so far
+                Sharing things I learn
             </p>
         </div>
     </div>
 
-    <div class="p-10 flex justify-center items-center flex-wrap lg:p-28 gap-5">
+    <div class="p-10 flex justify-center items-center flex-wrap lg:p-28 gap-7">
         {#each cards as card}
-            <Card>
+            <Card rounded="1.9rem" on:click={() => window.location.href = "/blog/" + card.slug} >
                 <div
-                    class="content flex gap-3 p-1 items-start text-left justify-center flex-col max-w-[20rem]"
+                    class="content aspect-[1] flex gap-3 p-1 items-start text-left justify-start flex-col max-w-[20rem]"
                 >
-                    <a href={card.link} target="_blank">
-                        <img
-                            src={card.image}
-                            alt={card.title}
-                            class=" object-cover rounded-3xl"
-                        />
-                    </a>
-                    <div class="">
-                        <a
-                            href={card.link} target="_blank" 
-                            class="pl-2 text-2xl font-semibold underline decoration-transparent underline-offset-4 hover:decoration-white"
+                    <img
+                        src={card.image}
+                        alt={card.title}
+                        class="aspect-[16/9] bg-center object-cover rounded-[1rem]"
+                    />
+                
+                    <div class="pl-2">
+                        <h1
+                            class=" text-xl font-semibold"
                         >
                             {card.title}
-                        </a>
-                        <p class="pl-2 mt-1 text-sm opacity-[0.8]">
-                            {card.description}
-                        </p>
+                        </h1>
                     </div>
                     <div
                         class="pl-2"
                     >
                         <div class="flex justify-start items-center flex-wrap gap-1 ">
-                            {#each card?.type ?? [] as type, index}
+                            {#each card?.tags ?? [] as tag, index}
                                 <div
                                     class={`rounded-md border ${
                                         allColors[index % allColors.length]
                                     } font-semibold text-xs px-2 py-1`}
                                 >
-                                    {type}
+                                    {tag}
                                 </div>
                             {/each}
                         </div>
-                        {#if (card?.collabs ?? []).length > 0}
-                            <div
-                                class="flex justify-start items-center text-xs flex-wrap gap-1 mt-2"
-                            >
-                                <span class="opacity-75">In Collaboration with -</span> 
-                                {#each (card.collabs ?? []) as collaborator, i}
-                                    <a
-                                        href={collaborator.link}
-                                        target="_blank"
-                                        class={`rounded-full gap-1 flex justify-center items-center border ${
-                                            allColors[i % allColors.length]
-                                        } font-semibold p-[2px] `}
-                                    >
-                                        <img class="w-5 h-5 rounded-full" src={collaborator.pfp} alt={collaborator.name}>
-                                    </a>
-                                {/each}
-                            </div>
-                        {/if}
                     </div>
                 </div>
             </Card>
         {/each}
     </div>
 </div>
-

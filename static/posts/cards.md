@@ -79,7 +79,7 @@ and wrap it around the card -
 
 And now you have a border - 
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/4hzodu0zj2fj3h558yvt.png)
+![](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/4hzodu0zj2fj3h558yvt.png)
 
 
 we are going to keep the border color `red` for now.
@@ -136,7 +136,7 @@ so to fix it add a `position: relative;` to the `.card` class -
 
 Now it should position itself along the `.card`.
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/ba3dgay4d3c8akj5gzv9.png)
+![](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/ba3dgay4d3c8akj5gzv9.png)
 
 But now the the glow is escaping out of the card, which we don't want.
 
@@ -157,7 +157,7 @@ So, we will add `overflow: hidden;` to `.card` class to stop it from spreading o
 
 Now you should be able to see the glow - 
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/i3b07b810u789gzoddrq.png)
+![](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/i3b07b810u789gzoddrq.png)
 
 # 4. Making the blob follow the mouse.
 

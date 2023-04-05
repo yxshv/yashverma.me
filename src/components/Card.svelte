@@ -4,6 +4,7 @@
     import { onMount } from "svelte";
 
     export let classes: string = '';
+    export let rounded: string = "2.5rem";
 
     const OFFSET = 0.09;
     let card: HTMLButtonElement;
@@ -77,6 +78,6 @@
     });
 </script>
 
-<button on:click bind:this={card} class={`${classes} card`} style={`--offset: ${OFFSET}`}>
+<button on:click bind:this={card} class={`${classes} card`} style={`--offset: ${OFFSET}; --rounded: ${rounded}`}>
     <slot />
 </button>
