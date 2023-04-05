@@ -64,10 +64,10 @@
 <div class="flex justify-center items-center flex-col py-10">
     <BackToHome />
     <div class="w-full lg:w-[50vw] px-6 mt-10">
-        <a href="/blog" class="text-left bg-bg border px-3 py-1 rounded-full border-outline mr-auto no-underline text-white inline-flex gap-1 justify-start items-center">
+        <button on:click={() => window.location.href="/blog"} class="text-left bg-bg border px-3 py-1 rounded-full border-outline mr-auto no-underline text-white inline-flex gap-1 justify-start items-center">
             <svg xmlns="http://www.w3.org/2000/svg" class="w-[1.1rem] h-[1.1rem]" viewBox="0 0 24 24"><path fill="currentColor" d="M20 11H7.83l5.59-5.59L12 4l-8 8l8 8l1.41-1.41L7.83 13H20v-2z"/></svg> 
             Back
-        </a>
+        </button>
     </div>
     {#if data.fourOfour}
         <h1 class="four04 font-bold">404</h1>
