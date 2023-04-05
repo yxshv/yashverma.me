@@ -61,6 +61,14 @@
 
 </script>
 
+<svelte:head>
+    <title>Blogs • Yash Verma</title>
+    <meta name="description" content="Sharings things I learn" />
+    <meta property="og:title" content="Blogs • Yash Verma" />
+    <meta property="og:description" content="Sharings things I learn" />
+    <meta property="og:image" content="/og/blog.png" />
+</svelte:head>
+
 <div class="flex justify-center items-center flex-col py-10">
     <BackToHome />
     <div class="w-full lg:w-[50vw] px-6 mt-10">
