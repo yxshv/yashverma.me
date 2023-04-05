@@ -40,7 +40,7 @@
     ]
 
     $: attrs = $posts[data.slug ?? "not-found"];
-    $: date = `${days[attrs?.datePublished.getDay()]}, ${attrs?.datePublished.getDay()} ${
+    $: date = `${days[attrs?.datePublished.getDay()]}, ${attrs?.datePublished.getDate()} ${
         months[attrs?.datePublished.getMonth()]
     } ${attrs?.datePublished.getFullYear()}`;
 
