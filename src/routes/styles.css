@@ -17,8 +17,17 @@ body {
     color: white;
 	overflow-x: hidden;
 	font-family: Archia, sans-serif;
+
+	@apply scrollbar scrollbar-thumb-outline;
 }
 
+::-webkit-scrollbar-thumb {
+	border-radius: 999999999999999px !important;
+}
+
+::-webkit-scrollbar {
+	width: 10px !important;
+}
 
 .scroll {
 	--height: 1.5rem;

@@ -4,7 +4,7 @@
     import "../cards.css";
     import Discord from "./Discord.svelte";
 
-    import { PUBLIC_TWITTER_USERNAME, PUBLIC_GITHUB_USERNAME } from "$env/static/public"
+    import { PUBLIC_TWITTER_USERNAME, PUBLIC_GITHUB_USERNAME, PUBLIC_EMAIL } from "$env/static/public"
 
 </script>
 
@@ -110,6 +110,15 @@
                     <img src="/github.svg" class="w-8 absolute top-0 left-0 -z-1" style={`filter: blur(10px);`} alt="github" />
                 </div>
                 <h1 class="text-xl">Github</h1>
+            </div>
+        </Card>
+        <Card on:click={() => window.open("mailto:" + PUBLIC_EMAIL)} classes="w-full lg:w-auto cursor-pointer">
+            <div class="content flex justify-center items-center gap-3 flex-col p-10">
+                <div class="w-8 h-8 relative isolate">
+                    <img src="/mail.svg" class="w-8" alt="mail" />
+                    <img src="/mail.svg" class="w-8 absolute top-0 left-0 -z-1" style={`filter: blur(10px);`} alt="mail" />
+                </div>
+                <h1 class="text-xl">Email</h1>
             </div>
         </Card>
     </div>
