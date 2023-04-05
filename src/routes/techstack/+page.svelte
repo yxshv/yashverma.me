@@ -33,7 +33,7 @@
         },
         {
             title: "Svelte",
-            description: "Svelte is a javascript web framework which is similar to React, rerendering on state changes",
+            description: "Svelte is a UI framework that shifts the work of updating the DOM from the browser to a compile step, resulting in faster and more efficient code",
             image: "/techstack/svelte.svg",
             link: "https://svelte.dev/",
             type: ["UI FRAMEWORK"]
