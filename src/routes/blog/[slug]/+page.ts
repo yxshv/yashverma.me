@@ -14,16 +14,34 @@ import remarkEmbed from 'remark-embed';
 export const load: PageLoad = async ({ fetch, params }) => {
   const slug = params['slug'];
   const res = await fetch(`/posts/${slug}.md`);
-  const post = await res.text();
+  let post = await res.text();
+
+  let attrs: {
+    title?: string;
+    date?: string;
+    image?: string;
+    tags?: string[];
+  } = {}
 
   if (post.trim().startsWith("---")) {
     const modified = post.replace("---", "");
-    const [frontMatter, ...content] = modified.split("---");
-    const attrs = frontMatter.trim().split("\n");
-    console.log(frontMatter, attrs)
+    const [frontMatter, ...after] = modified.split("---");
+
+    post = after.join("---")
+    const attrr = frontMatter.trim().split("\n");
+    attrr.forEach((attr) => {
+      const [key, value] = attr.trim().split(":");
+      if (key.trim() === "tags") {
+        attrs["tags"] = value.trim().split(",").map((tag) => tag.trim());
+        return;
+      }
+      attrs[key.trim() as ("title" | "date" | "image")] = value.trim();
+    })
   } else {
     console.log("no")
   }
+
+  console.log(attrs)
 
   const md = await unified()
     .use(remarkParse)
@@ -38,10 +56,9 @@ export const load: PageLoad = async ({ fetch, params }) => {
     .use(remarkGFM)
     .process(post)
 
-
-
   return {
     slug,
+    attrs,
     post: md,
   };
 };

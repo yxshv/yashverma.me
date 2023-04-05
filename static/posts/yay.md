@@ -293,7 +293,6 @@ and now -
 
 ![](https://us-east-1.tixte.net/uploads/kekda.wants.solutions/chrome_Qoq1qLvRqt.gif)
 
-
 And there you have it!
 
 Thanks for reading the blog! I hope it helped you :)

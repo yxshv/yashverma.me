@@ -77,6 +77,6 @@
     });
 </script>
 
-<div on:click bind:this={card} class={`${classes} card`} style={`--offset: ${OFFSET}`}>
+<button on:click bind:this={card} class={`${classes} card`} style={`--offset: ${OFFSET}`}>
     <slot />
-</div>
+</button>

@@ -46,14 +46,6 @@ h1, h2, h3, h4, h5, h6 {
     font-size: xx-large !important;
 }
 
-/* if mobile */
-@media (max-width: 640px) {
-    h1, h2, h3, h4, h5, h6 {
-        @apply font-bold;
-        font-size: x-large !important;
-    }
-}
-
 blockquote {
     border: 1px solid #474466;
     background: #1B1B31 !important;
@@ -86,4 +78,22 @@ iframe {
 
 a {
     @apply text-blue-500 underline underline-offset-2;
+}
+
+.title {
+    font-size: 2.5rem !important;
+    @apply font-extrabold;
+}
+
+/* if mobile */
+@media (max-width: 640px) {
+    h1, h2, h3, h4, h5, h6 {
+        @apply font-bold;
+        font-size: x-large !important;
+    }
+
+    .title {
+        font-size: 2rem !important;
+        @apply font-extrabold;
+    }
 }
