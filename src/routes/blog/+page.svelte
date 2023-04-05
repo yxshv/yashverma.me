@@ -16,6 +16,8 @@
         isPublished?: boolean;
     }
 
+    let value: string = "";
+    
     const sort = (a: Card, b: Card) => {
         return b.datePublished.getTime() - a.datePublished.getTime();
     };
@@ -31,7 +33,7 @@
             datePublished: $posts[key].datePublished,
             isPublished: $posts[key].isPublished,
         } as Card
-    })).sort(sort).filter(c => c.isPublished) as Card[];
+    })).sort(sort).filter(c => c.isPublished && c.title.trim().toLowerCase().includes(value.trim().toLowerCase())) as Card[];
 </script>
 
 <svelte:head>
@@ -62,42 +64,46 @@
         </div>
     </div>
 
-    <div class="p-10 flex justify-center items-center flex-wrap lg:p-28 gap-7">
-        {#each cards as card}
-            <Card rounded="1.9rem" on:click={() => window.location.href = "/blog/" + card.slug} >
-                <div
-                    class="content aspect-[1] flex gap-3 p-1 items-start text-left justify-start flex-col max-w-[20rem]"
-                >
-                    <img
-                        src={card.image}
-                        alt={card.title}
-                        class="aspect-[16/9] bg-center object-cover rounded-[1rem]"
-                    />
-                
-                    <div class="pl-2">
-                        <h1
-                            class=" text-xl font-semibold"
-                        >
-                            {card.title}
-                        </h1>
-                    </div>
+    <div class="p-10 lg:p-28 flex flex-col gap-5 items-center">
+        <input bind:value class="focus:outline-none my-0 bg-bg lg:w-[50%] px-4 py-2 rounded-xl border border-outline w-full" placeholder="Search Posts" />
+        <div class="flex justify-center items-center flex-wrap gap-7">
+            {#each cards as card}
+                <Card rounded="1.9rem" on:click={() => window.location.href = "/blog/" + card.slug} >
                     <div
-                        class="pl-2"
+                        class="content aspect-[1] flex gap-3 p-1 items-start text-left justify-start flex-col max-w-[20rem]"
                     >
-                        <div class="flex justify-start items-center flex-wrap gap-1 ">
-                            {#each card?.tags ?? [] as tag, index}
-                                <div
-                                    class={`rounded-md border ${
-                                        allColors[index % allColors.length]
-                                    } font-semibold text-xs px-2 py-1`}
-                                >
-                                    {tag}
-                                </div>
-                            {/each}
+                        <img
+                            src={card.image}
+                            alt={card.title}
+                            class="aspect-[16/9] bg-center object-cover rounded-[1rem]"
+                        />
+                    
+                        <div class="pl-2">
+                            <h1
+                                class=" text-xl font-semibold"
+                            >
+                                {card.title}
+                            </h1>
+                        </div>
+                        <div
+                            class="pl-2"
+                        >
+                            <div class="flex justify-start items-center flex-wrap gap-1 ">
+                                {#each card?.tags ?? [] as tag, index}
+                                    <div
+                                        class={`rounded-md border ${
+                                            allColors[index % allColors.length]
+                                        } font-semibold text-xs px-2 py-1`}
+                                    >
+                                        {tag}
+                                    </div>
+                                {/each}
+                            </div>
                         </div>
                     </div>
-                </div>
-            </Card>
-        {/each}
+                </Card>
+            {/each}
+        </div>
     </div>
+
 </div>
