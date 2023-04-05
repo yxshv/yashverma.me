@@ -22,7 +22,7 @@
         <div class="flex justify-center items-center gap-2">
             {#if $presence?.listening_to_spotify}
                 <img src={$presence?.spotify.album_art_url} class="w-20" alt="spotify" />
-                <div class="flex justify-center flex-col">
+                <div class="flex justify-center text-left flex-col">
                     <h1 class="text-lg font-semibold">
                         {$presence?.spotify.song}
                     </h1>
