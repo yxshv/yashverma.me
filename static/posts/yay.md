@@ -1,7 +1,7 @@
 ---
 title: Cards mouse hover effect with CSS + JS
 image: /posts/cards.webp
-date: 22-02-23
+date: 22 February 2023
 ---
 
 In this blog post we will recreate windows 10 start menu's button hover effects,

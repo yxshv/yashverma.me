@@ -21,6 +21,7 @@ export const load: PageLoad = async ({ fetch, params }) => {
     date?: string;
     image?: string;
     tags?: string[];
+    readingTime?: string;
   } = {}
 
   if (post.trim().startsWith("---")) {
@@ -37,11 +38,7 @@ export const load: PageLoad = async ({ fetch, params }) => {
       }
       attrs[key.trim() as ("title" | "date" | "image")] = value.trim();
     })
-  } else {
-    console.log("no")
   }
-
-  console.log(attrs)
 
   const md = await unified()
     .use(remarkParse)

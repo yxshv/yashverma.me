@@ -97,3 +97,7 @@ a {
         @apply font-extrabold;
     }
 }
+
+.date {
+    padding: 0 0 !important;
+}
