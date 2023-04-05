@@ -6,7 +6,7 @@
     export let classes: string = '';
 
     const OFFSET = 0.09;
-    let card: HTMLDivElement;
+    let card: HTMLButtonElement;
 
     const nr: {
         mousePos?: { x: number; y: number };
