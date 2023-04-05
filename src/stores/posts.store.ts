@@ -17,7 +17,7 @@ export const posts = readable<Posts>({
         title: 'Cards mouse hover effect with CSS + JS',
         isPublished: true,
         tags: ["ANIMATION", "CSS", "JS", "DESIGN"],
-        image: '/posts/cards.webp   ',
+        image: '/posts/cards.webp',
         datePublished: new Date('2023-02-22'),
     },
     buga: {
@@ -33,6 +33,13 @@ export const posts = readable<Posts>({
         tags: ["PRODUCT", "SHOWDEV"],
         image: "/posts/blog.svg",
         datePublished: new Date('2021-12-12'),
+    },
+    threeD: {
+        title: "Add cool looking 3D scroll effect with CSS + JS",
+        isPublished: false,
+        tags: ["ANIMATION", "3D", "JAVASCRIPT", "CSS"],
+        image: "/posts/blog.svg",
+        datePublished: new Date('2023-04-05'),
     },
     notFound: {
         title: '404 page',
