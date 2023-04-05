@@ -67,6 +67,7 @@
     <meta property="og:title" content="Blogs • Yash Verma" />
     <meta property="og:description" content="Sharings things I learn" />
     <meta property="og:image" content="/og/blog.png" />
+    <meta property="twitter:image" content="/og/blog.png" />
 </svelte:head>
 
 <div class="flex justify-center items-center flex-col py-10">

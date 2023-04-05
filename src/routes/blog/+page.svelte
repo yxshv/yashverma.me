@@ -40,6 +40,7 @@
     <meta property="og:title" content="Blogs • Yash Verma" />
     <meta property="og:description" content="Sharings things I learn" />
     <meta property="og:image" content="/og/blog.png" />
+    <meta property="twitter:image" content="/og/blog.png" />
 </svelte:head>
 
 <div class="relative text-[#9DA8C2]">

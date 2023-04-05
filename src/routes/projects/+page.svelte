@@ -90,6 +90,7 @@
     <meta property="og:title" content="Projects • Yash Verma" />
     <meta property="og:description" content="Things I have built so far" />
     <meta property="og:image" content="/og/projects.png" />
+    <meta property="twitter:image" content="/og/projects.png" />
 </svelte:head>
 
 

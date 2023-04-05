@@ -9,6 +9,7 @@
     <meta property="og:title" content="Home • Yash Verma" />
     <meta property="og:description" content="Hey I am Yash! A 14yr old software developer, proficient in Typescript, Python, Golang, and a little bit of rust" />
     <meta property="og:image" content="/og-image.png" />
+    <meta property="twitter:image" content="/og-image.png" />
 </svelte:head>
 
 <Hero />
