@@ -1,5 +1,7 @@
 # yashverma.me
 
+Inspired by - https://www.pixelwrld.co/roman/home
+
 ## Stack
 
 - Sveltekit
