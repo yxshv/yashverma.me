@@ -26,7 +26,9 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@giscus/svelte": "^2.2.8",
 		"@types/marked": "^4.0.8",
+		"giscus": "^1.2.8",
 		"highlight.js": "^11.7.0",
 		"rehype-autolink-headings": "^6.1.1",
 		"rehype-code-titles": "^1.2.0",

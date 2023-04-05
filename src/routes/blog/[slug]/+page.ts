@@ -51,7 +51,7 @@ export const load: PageLoad = async ({ fetch, params }) => {
     .use(rehypeCodeTitles)
     .use(rehypeHighLight)
     .use(remarkGFM)
-    .process(post)
+    .process("---" + "\n\n" + post + "\n\n" + "---")
 
   return {
     slug,

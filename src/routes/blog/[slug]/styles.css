@@ -98,6 +98,10 @@ a {
     }
 }
 
+hr {
+    @apply border-outline;
+}
+
 .date {
     padding: 0 0 !important;
 }
