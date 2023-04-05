@@ -123,6 +123,7 @@
     <meta name="description" content="The tools I use to build stuffs" />
     <meta property="og:title" content="My Tech Stack • Yash Verma" />
     <meta property="og:description" content="The tools I use to build stuffs" />
+    <meta property="og:image" content="/og/techstack.png" />
 </svelte:head>
 
 <div class="relative text-[#9DA8C2]">
