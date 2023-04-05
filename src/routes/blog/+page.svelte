@@ -34,6 +34,14 @@
     })).sort(sort).filter(c => c.isPublished) as Card[];
 </script>
 
+<svelte:head>
+    <title>Blogs • Yash Verma</title>
+    <meta name="description" content="Sharings things I learn" />
+    <meta property="og:title" content="Blogs • Yash Verma" />
+    <meta property="og:description" content="Sharings things I learn" />
+    <meta property="og:image" content="/og/blog.png" />
+</svelte:head>
+
 <div class="relative text-[#9DA8C2]">
     <div class="grid-overlay"><div class="fade-out" /></div>
     <div

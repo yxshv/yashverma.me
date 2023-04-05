@@ -83,6 +83,15 @@
     ];
 </script>
 
+
+<svelte:head>
+    <title>Projects • Yash Verma</title>
+    <meta name="description" content="Things I have built so far" />
+    <meta property="og:title" content="Projects • Yash Verma" />
+    <meta property="og:description" content="Things I have built so far" />
+</svelte:head>
+
+
 <div class="relative text-[#9DA8C2]">
     <div class="grid-overlay"><div class="fade-out" /></div>
     <div
