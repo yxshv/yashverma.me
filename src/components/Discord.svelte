@@ -43,7 +43,7 @@
 <Card on:click={() => {
     window.open(`https://discord.com/users/${PUBLIC_DISCORD_ID}`)
 }} classes="cursor-pointer">
-    <div class="content relative flex justify-center items-center p-5 lg:p-10">
+    <div class="content relative text-left flex justify-center items-center p-5 lg:p-10">
         <img src="/discord.svg" alt="discord logo" class="top-2 right-2 w-5 absolute" />
         <div
             class="avatar w-20 rounded-full"
