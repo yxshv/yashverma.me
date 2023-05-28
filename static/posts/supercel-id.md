@@ -1,0 +1,1 @@
+If you have ever played a [Supercell](https://supercell.com) Game ([Brawl Stars](https://supercell.com/en/games/brawlstars/), [Clash of Clans](https://supercell.com/en/games/clashofclans), [Clash Royale](https://supercell.com/en/games/clashroyale), [Hay Day](https://supercell.com/en/games/hayday), [Boom Beach](https://supercell.com/en/games/boombeach))
