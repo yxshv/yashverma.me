@@ -41,6 +41,13 @@ export const posts = readable<Posts>({
         image: "/posts/blog.svg",
         datePublished: new Date('2023-04-05'),
     },
+    "supercell-id": {
+        title: "How to add `Login with Supercell ID` in your website",
+        isPublished: false,
+        tags: ["SUPERCELL ID", "GAME", "API"],
+        image: "/posts/blog.svg",
+        datePublished: new Date('2023-05-29'),
+    },
     notFound: {
         title: '404 page',
         isPublished: false,
