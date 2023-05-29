@@ -131,3 +131,9 @@ hr {
 .date {
     padding: 0 0 !important;
 }
+
+ul {
+    list-style-type: unset; 
+}
+
+
