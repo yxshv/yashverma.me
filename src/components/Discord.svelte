@@ -63,9 +63,6 @@
             {#if $presence}
                 <h1 class="text-lg">
                     {$presence?.discord_user.username}
-                    <span class="opacity-50">
-                        #{$presence?.discord_user.discriminator}
-                    </span>
                 </h1>
                 <p class="text-sm">
                     {status[0]}
