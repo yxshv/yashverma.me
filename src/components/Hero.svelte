@@ -20,20 +20,20 @@
             description:
                 "One place for all your meme needs. Meme creator and more",
             image: "/lmfao-tech.png",
-            link: "https://lmfao.tech",
+            link: "https://github.com/lmfao-tech/frontend",
         },
         {
             title: "Cakecutter",
             description:
                 "Project boostrapping and setup tool. Easier than making a cake",
             image: "/cc.png",
-            link: "https://cakes.run",
+            link: "https://github.com/cake-cutter/cakecutter",
         },
         {
             title: "Disco.pics",
             description: "Free unlimited image hosting and sharing platform",
             image: "/discopics.png",
-            link: "https://disco.pics",
+            link: "https://github.com/discopics/disco.pics",
         },
         {
             title: "Req-Cool",
