@@ -27,7 +27,7 @@
             description:
                 "One place for all your meme needs. Meme creator and more",
             image: "/lmfao-tech.png",
-            link: "https://lmfao.tech",
+            link: "https://github.com/lmfao-tech/frontend",
             type: ["WEB APP", "PWA", "TWIITER BOT"],
             collabs: [
                 {
@@ -42,7 +42,7 @@
             description:
                 "Project boostrapping and setup tool. Easier than making a cake",
             image: "/cc.png",
-            link: "https://cakes.run",
+            link: "https://github.com/cake-cutter/cakecutter",
             type: ["CLI"],
             collabs: [
                 {
@@ -56,7 +56,7 @@
             title: "Disco.pics",
             description: "Free unlimited image hosting and sharing platform",
             image: "/discopics.png",
-            link: "https://disco.pics",
+            link: "https://github.com/discopics/disco.pics",
             type: ["WEB APP"],
             collabs: [
                 {
@@ -77,7 +77,7 @@
             title: "Buga-Chat",
             description: "Completely anonymous chat app",
             image: "/buga.png",
-            link: "https://buga-chat.vercel.app",
+            link: "https://github.com/yxshv/buga-chat",
             type: ["WEB APP", "WEBSOCKET", "API"],
         },
     ];
