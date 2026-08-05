@@ -1,13 +1,22 @@
-<!-- svelte-ignore a11y-click-events-have-key-events -->
-
 <script lang="ts">
     import { onMount } from "svelte";
 
-    export let classes: string = '';
-    export let rounded: string = "2.5rem";
+    interface Props {
+        classes?: string;
+        rounded?: string;
+        onclick?: (event: MouseEvent) => void;
+        children?: import('svelte').Snippet;
+    }
+
+    let {
+        classes = '',
+        rounded = "2.5rem",
+        onclick,
+        children,
+    }: Props = $props();
 
     const OFFSET = 0.09;
-    let card: HTMLButtonElement;
+    let card = $state<HTMLButtonElement>();
 
     const nr: {
         mousePos?: { x: number; y: number };
@@ -28,6 +37,8 @@
     }
 
     function calculatePos() {
+        if (!card) return { x: 0, y: 0 };
+
         const oX = parseInt(card.style.getPropertyValue("--oX"));
         const oY = parseInt(card.style.getPropertyValue("--oY"));
         const oW = parseInt(card.style.getPropertyValue("--oW"));
@@ -46,6 +57,8 @@
     }
 
     function onMouseMove(ev: MouseEvent) {
+        if (!card) return;
+
         nr.mousePos = {
             x: ev.clientX,
             y: ev.clientY,
@@ -59,25 +72,38 @@
         card.style.setProperty("--y", `${y}px`);
     }
 
-    onMount(async () => {
-        
+    onMount(() => {
+        const element = card;
+        if (!element) return;
+
         nr.inPhone = window.innerWidth < 768;
 
         updateDimension();
 
-        card.addEventListener("mousemove", onMouseMove);
-        card.addEventListener("mouseenter", () => (nr.hover = true));
-        card.addEventListener("mouseleave", () => () => {
+        const onMouseEnter = () => (nr.hover = true);
+        const onMouseLeave = () => () => {
             nr.hover = false;
-            card.style.setProperty("--x", `0px`);
-            card.style.setProperty("--y", `0px`);
-        });
+            element.style.setProperty("--x", `0px`);
+            element.style.setProperty("--y", `0px`);
+        };
+
+        element.addEventListener("mousemove", onMouseMove);
+        element.addEventListener("mouseenter", onMouseEnter);
+        element.addEventListener("mouseleave", onMouseLeave);
 
         window.addEventListener("resize", updateDimension);
         window.addEventListener("scroll", updateDimension);
+
+        return () => {
+            element.removeEventListener("mousemove", onMouseMove);
+            element.removeEventListener("mouseenter", onMouseEnter);
+            element.removeEventListener("mouseleave", onMouseLeave);
+            window.removeEventListener("resize", updateDimension);
+            window.removeEventListener("scroll", updateDimension);
+        };
     });
 </script>
 
-<button on:click bind:this={card} class={`${classes} card`} style={`--offset: ${OFFSET}; --rounded: ${rounded}`}>
-    <slot />
+<button {onclick} bind:this={card} class={`${classes} card`} style={`--offset: ${OFFSET}; --rounded: ${rounded}`}>
+    {@render children?.()}
 </button>

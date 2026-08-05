@@ -1,5 +1,3 @@
-<!-- svelte-ignore a11y-click-events-have-key-events -->
-
 <script lang="ts">
     import BackToHome from "../../components/BackToHome.svelte";
     import Card from "../../components/Card.svelte";
@@ -128,7 +126,7 @@
 </svelte:head>
 
 <div class="relative text-[#9DA8C2]">
-    <div class="grid-overlay"><div class="fade-out" /></div>
+    <div class="grid-overlay"><div class="fade-out"></div></div>
     <div
         class="h-screen w-full flex justify-center items-center flex-col gap-10"
     >
@@ -148,7 +146,7 @@
 
     <div class="p-10 flex justify-center items-center flex-wrap lg:p-24 gap-8">
         {#each cards as card}
-            <Card on:click={() => window.open(card.link, "_blank")} classes="cursor-pointer aspect-[1] lg:w-[350px] ">
+            <Card onclick={() => window.open(card.link, "_blank")} classes="cursor-pointer aspect-[1] lg:w-[350px] ">
                 <div
                     class="content flex gap-3 p-1 items-center text-center justify-center flex-col max-w-[20rem]"
                 >

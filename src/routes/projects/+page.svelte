@@ -1,5 +1,3 @@
-<!-- svelte-ignore a11y-click-events-have-key-events -->
-
 <script lang="ts">
     import BackToHome from "../../components/BackToHome.svelte";
     import Card from "../../components/Card.svelte";
@@ -95,7 +93,7 @@
 
 
 <div class="relative text-[#9DA8C2]">
-    <div class="grid-overlay"><div class="fade-out" /></div>
+    <div class="grid-overlay"><div class="fade-out"></div></div>
     <div
         class="h-screen w-full flex justify-center items-center flex-col gap-10"
     >

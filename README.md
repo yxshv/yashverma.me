@@ -4,17 +4,19 @@ Inspired by - https://www.pixelwrld.co/roman/home
 
 ## Stack
 
-- Sveltekit
-- TailwindCSS
+- Svelte 5
+- SvelteKit 2
+- Tailwind CSS 4
+- Vite 8
 
 ## Running locally
 
-This application requires `node.js` to run.
+This application requires Node.js 22.12 or newer and pnpm 11.
 
 ```
 git clone https://github.com/yxshv/yashverma.me
 cd yashverma.me
-npm install
+pnpm install
 ```
 
 Create an `.env` file
@@ -29,5 +31,5 @@ PUBLIC_EMAIL="you@email.cool"
 To run the app in development mode - 
     
 ```
-npm run dev
+pnpm dev
 ```

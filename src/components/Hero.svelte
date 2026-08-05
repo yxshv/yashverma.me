@@ -54,13 +54,15 @@
         lastScroll?: number;
     } = {};
 
-    let wrapper: HTMLDivElement;
-    let intro: HTMLDivElement;
+    let wrapper = $state<HTMLDivElement>();
+    let intro = $state<HTMLDivElement>();
 
 
     onMount(async () => {
+        const element = wrapper;
+        if (!element) return;
 
-        nr.cs = wrapper.querySelectorAll(".card");
+        nr.cs = element.querySelectorAll(".card");
 
         nr.cs.forEach((card, i) => {
 
@@ -78,7 +80,7 @@
 
             card.style.setProperty("--x", `${translate3d.x}px`);
             card.style.setProperty("--oZ", `${translate3d.z}px`);
-            wrapper.style.setProperty("--z", `0px`);
+            element.style.setProperty("--z", `0px`);
 
             card.style.zIndex = `${-1 * i}`;
         });
@@ -101,7 +103,8 @@
             y: event.clientY,
         };
 
-        if (!wrapper) return
+        const element = wrapper;
+        if (!element) return
 
         console.log("wrapper")
 
@@ -111,7 +114,7 @@
             const isInside = mousePos.x >= rect.left && mousePos.x <= rect.right && mousePos.y >= rect.top && mousePos.y <= rect.bottom;
             const opacity = parseFloat(card.style.getPropertyValue("--opacity"));
             
-            const z = parseFloat(wrapper.style.getPropertyValue("--z").replace('px', '')) + parseFloat(card.style.getPropertyValue("--oZ").replace('px', ''));
+            const z = parseFloat(element.style.getPropertyValue("--z").replace('px', '')) + parseFloat(card.style.getPropertyValue("--oZ").replace('px', ''));
 
             console.log((index+1) * PERSPECTIVE + PADDINGS, z, cards[index].title, index*PERSPECTIVE + PADDINGS >= z)
 
@@ -124,8 +127,8 @@
     }
 
     function onScroll() {
-
-        if (!intro) return
+        const cardElements = nr.cs;
+        if (!intro || !wrapper || !cardElements || cardElements.length < 2) return;
 
         const scroll = window.scrollY;
 
@@ -151,8 +154,8 @@
 
         nr.lastScroll = scroll;
 
-        const last = nr.cs![nr.cs!.length - 1];
-        const lastSecond = nr.cs![nr.cs!.length - 2];
+        const last = cardElements[cardElements.length - 1];
+        const lastSecond = cardElements[cardElements.length - 2];
 
         wrapper.style.setProperty("--z", `${scroll * MAGNITUDE_ON_INCREASE}px`);
 
@@ -177,7 +180,7 @@
             lastSecond.style.removeProperty("--z");
         }
 
-        nr.cs!.forEach((card) => {
+        cardElements.forEach((card) => {
             const last = parseFloat(
                 card.style.getPropertyValue("--oZ").replace("px", "")
             );
@@ -197,7 +200,7 @@
         bind:this={intro}
         class="aboutme fixed flex justify-center gap-10 lg:justify-between flex-col items-center z-1 p-8 lg:p-16 top-0 w-screen h-full bg-[#131325]"
     >
-        <div class="grid-overlay"><div class="fade-out" /></div>
+        <div class="grid-overlay"><div class="fade-out"></div></div>
 
         <BackToHome />
         <div class="text-center me" style="text-shadow: 0px 0px 100px white;">
@@ -224,7 +227,7 @@
             </p>
         </div>
         <span class="hidden lg:flex justify-center items-center gap-1">
-            <div class="scroll" />
+            <div class="scroll"></div>
             SCROLL TO BEGIN
         </span>
     </div>
@@ -252,7 +255,7 @@
         <div
             style="background-image: url(/stars.svg)"
             class="w-screen h-screen"
-        />
+></div>
     </div>
 </div>
 
@@ -285,19 +288,21 @@
             </p>
         </div>
         <div class="z-[-1] h-full w-full absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 stars">
-            <div class="overlay phone w-screen h-full absolute top-0" />
+            <div class="overlay phone w-screen h-full absolute top-0"></div>
             <div
                 style="background-image: url(/stars.svg)"
                 class="w-screen h-full"
-            />
+></div>
         </div>
     </div>
     
 </div>
 
-<style lang="postcss">
+<style>
     .hero-underline {
-        @apply underline underline-offset-4 decoration-2;
+        text-decoration-line: underline;
+        text-decoration-thickness: 2px;
+        text-underline-offset: 4px;
     }
 
     .card {
@@ -310,7 +315,12 @@
 
         background: #1B1B31;
 
-        @apply rounded-3xl flex-col flex justify-center p-3 gap-2;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 0.5rem;
+        padding: 0.75rem;
+        border-radius: 1.5rem;
 
         border: 2px solid #474466;
 
@@ -321,7 +331,7 @@
     }
 
     .card img {
-        @apply rounded-2xl;
+        border-radius: 1rem;
         box-shadow: 2px 2px #474466;
     }
 

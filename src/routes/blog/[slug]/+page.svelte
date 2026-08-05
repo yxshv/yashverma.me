@@ -1,18 +1,20 @@
 <script lang="ts">
     import "./styles.css";
     import "highlight.js/styles/github-dark.css";
-    import Giscus from "../../../components/giscus/Giscus.svelte";
+    import Giscus from "@giscus/svelte";
     import BackToHome from "../../../components/BackToHome.svelte";
     import { posts } from "../../../stores/posts.store";
     import { onMount } from "svelte";
+    import type { PageData } from "./$types";
 
     const allColors = ["rose", "green", "blue", "yellow"];
+    const giscusId = undefined as unknown as string;
 
-    export let data: {
-        slug?: string;
-        post?: string;
-        fourOfour?: boolean;
-    };
+    interface Props {
+        data: PageData;
+    }
+
+    let { data }: Props = $props();
 
     const days = [
         "Sunday",
@@ -39,10 +41,10 @@
         "December",
     ]
 
-    $: attrs = $posts[data.slug ?? "not-found"];
-    $: date = `${days[attrs?.datePublished.getDay()]}, ${attrs?.datePublished.getDate()} ${
+    let attrs = $derived($posts[data.slug ?? "not-found"]);
+    let date = $derived(`${days[attrs?.datePublished.getDay()]}, ${attrs?.datePublished.getDate()} ${
         months[attrs?.datePublished.getMonth()]
-    } ${attrs?.datePublished.getFullYear()}`;
+    } ${attrs?.datePublished.getFullYear()}`);
 
     onMount(async () => {
         const filenames: NodeListOf<HTMLDivElement> = document.querySelectorAll(".rehype-code-title");
@@ -73,7 +75,7 @@
 <div class="flex justify-center items-center flex-col py-10">
     <BackToHome />
     <div class="w-full lg:w-[50vw] px-6 mt-10">
-        <button on:click={() => window.location.href="/blog"} class="text-left bg-bg border px-3 py-1 rounded-full border-outline mr-auto no-underline text-white inline-flex gap-1 justify-start items-center">
+        <button onclick={() => window.location.href="/blog"} class="text-left bg-bg border px-3 py-1 rounded-full border-outline mr-auto no-underline text-white inline-flex gap-1 justify-start items-center">
             <svg xmlns="http://www.w3.org/2000/svg" class="w-[1.1rem] h-[1.1rem]" viewBox="0 0 24 24"><path fill="currentColor" d="M20 11H7.83l5.59-5.59L12 4l-8 8l8 8l1.41-1.41L7.83 13H20v-2z"/></svg> 
             Back
         </button>
@@ -123,6 +125,7 @@
             {@html data.post}
 
             <Giscus
+                id={giscusId}
                 repo="yxshv/yashverma.me"
                 repoId="R_kgDOJPfgbw"
                 category="General"

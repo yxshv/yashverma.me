@@ -1,5 +1,3 @@
-<!-- svelte-ignore a11y-click-events-have-key-events -->
-
 <script lang="ts">
     import BackToHome from "../../components/BackToHome.svelte";
     import Card from "../../components/Card.svelte";
@@ -16,7 +14,7 @@
         isPublished?: boolean;
     }
 
-    let value: string = "";
+    let value = $state("");
     
     const sort = (a: Card, b: Card) => {
         return b.datePublished.getTime() - a.datePublished.getTime();
@@ -24,7 +22,7 @@
 
     const allColors = ["rose", "green", "blue", "yellow"];
 
-    $: cards = (Object.keys($posts).map((key) => {
+    let cards = $derived((Object.keys($posts).map((key) => {
         return {
             title: $posts[key].title,
             image: $posts[key].image,
@@ -33,7 +31,7 @@
             datePublished: $posts[key].datePublished,
             isPublished: $posts[key].isPublished,
         } as Card
-    })).sort(sort).filter(c => c.isPublished && c.title.trim().toLowerCase().includes(value.trim().toLowerCase())) as Card[];
+    })).sort(sort).filter(c => c.isPublished && c.title.trim().toLowerCase().includes(value.trim().toLowerCase())) as Card[]);
 </script>
 
 <svelte:head>
@@ -46,7 +44,7 @@
 </svelte:head>
 
 <div class="relative text-[#9DA8C2]">
-    <div class="grid-overlay"><div class="fade-out" /></div>
+    <div class="grid-overlay"><div class="fade-out"></div></div>
     <div
         class="h-screen w-full flex justify-center items-center flex-col gap-10"
     >
@@ -65,10 +63,10 @@
     </div>
 
     <div class="p-10 lg:p-28 flex flex-col gap-5 items-center">
-        <input bind:value class="focus:outline-none my-0 bg-bg lg:w-[50%] px-4 py-2 rounded-xl border border-outline w-full" placeholder="Search Posts" />
+        <input bind:value class="focus:outline-hidden my-0 bg-bg lg:w-[50%] px-4 py-2 rounded-xl border border-outline w-full" placeholder="Search Posts" />
         <div class="flex justify-center items-center flex-wrap gap-7">
             {#each cards as card}
-                <Card rounded="1.9rem" on:click={() => window.location.href = "/blog/" + card.slug} >
+                <Card rounded="1.9rem" onclick={() => window.location.href = "/blog/" + card.slug} >
                     <div
                         class="content aspect-[1] flex gap-3 p-1 items-start text-left justify-start flex-col max-w-[20rem]"
                     >

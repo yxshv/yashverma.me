@@ -1,15 +1,58 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+@plugin "tailwind-scrollbar";
+
+@theme {
+    --color-bg: #1b1b31;
+    --color-outline: #474466;
+
+    /* Keep Tailwind 3's rendered palette exactly. */
+    --color-slate-50: #f8fafc;
+    --color-slate-100: #f1f5f9;
+    --color-slate-200: #e2e8f0;
+    --color-slate-300: #cbd5e1;
+    --color-slate-400: #94a3b8;
+    --color-slate-500: #64748b;
+    --color-slate-600: #475569;
+    --color-slate-700: #334155;
+    --color-slate-800: #1e293b;
+    --color-slate-900: #0f172a;
+    --color-slate-950: #020617;
+
+    --color-rose-500: #f43f5e;
+    --color-rose-600: #e11d48;
+    --color-green-500: #22c55e;
+    --color-green-600: #16a34a;
+    --color-yellow-500: #eab308;
+    --color-yellow-600: #ca8a04;
+    --color-blue-500: #3b82f6;
+    --color-blue-600: #2563eb;
+}
+
+@layer base {
+    *,
+    ::before,
+    ::after,
+    ::backdrop,
+    ::file-selector-button {
+        border-color: #e5e7eb;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+        color: #9ca3af;
+        opacity: 1;
+    }
+
+    button:not(:disabled),
+    [role="button"]:not(:disabled) {
+        cursor: pointer;
+    }
+}
 
 @font-face {
 	font-family: 'Archia';
 	src: url(/archia-regular-webfont.woff2);
-}
-
-* {
-    margin: 0;
-    padding: 0;
 }
 
 body {

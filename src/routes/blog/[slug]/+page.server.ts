@@ -1,4 +1,4 @@
-import type { PageLoad } from './$types';
+import type { PageServerLoad } from './$types';
 import { unified } from "unified";
 import remarkParse from 'remark-parse'
 import remarkRehype from 'remark-rehype'
@@ -10,9 +10,12 @@ import rehypeHighLight from "rehype-highlight"
 import rehypeCodeTitles from "rehype-code-titles";
 import remarkGFM from "remark-gfm";
 import remarkEmbed from 'remark-embed';
+import type { Plugin } from 'unified';
 
-export const load: PageLoad = async ({ fetch, params }) => {
-	const slug = params['slug'];
+const remarkEmbedPlugin = remarkEmbed as unknown as Plugin;
+
+export const load: PageServerLoad = async ({ fetch, params }) => {
+	const slug = params.slug;
 	let res: Response;
 	try {
 		res = await fetch(`/posts/${slug}.md`);
@@ -42,9 +45,9 @@ export const load: PageLoad = async ({ fetch, params }) => {
 		const [frontMatter, ...after] = modified.split("---");
 
 		post = after.join("---")
-		const attrr = frontMatter.trim().split("\n");
-		attrr.forEach((attr) => {
-			const [key, value] = attr.trim().split(":");
+		const frontMatterLines = frontMatter.trim().split("\n");
+		frontMatterLines.forEach((frontMatterLine) => {
+			const [key, value] = frontMatterLine.trim().split(":");
 			if (key.trim() === "tags") {
 				attrs["tags"] = value.trim().split(",").map((tag) => tag.trim());
 				return;
@@ -57,7 +60,7 @@ export const load: PageLoad = async ({ fetch, params }) => {
 		.use(remarkParse)
 		.use(remarkRehype)
 		.use(rehypeDocument)
-		.use(remarkEmbed)
+		.use(remarkEmbedPlugin)
 		.use(rehypeFormat)
 		.use(rehypeStringify)
 		.use(rehypeAutolinkHeadings)
@@ -69,6 +72,6 @@ export const load: PageLoad = async ({ fetch, params }) => {
 	return {
 		slug,
 		attrs,
-		post: md,
+		post: String(md),
 	};
 };

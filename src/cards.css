@@ -1,4 +1,6 @@
 
+@reference "./routes/styles.css";
+
 
 .card {
 	overflow: hidden;

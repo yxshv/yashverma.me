@@ -1,21 +1,19 @@
-<!-- svelte-ignore a11y-click-events-have-key-events -->
-
 <script lang="ts">
     import Card from "./Card.svelte";
     import { PUBLIC_DISCORD_ID } from '$env/static/public'
-    import { useLanyard } from "sk-lanyard";
+    import { useLanyard } from "$lib/lanyard";
 
-    const presence = useLanyard({ method: "ws", id: PUBLIC_DISCORD_ID });
-    let progress = 0;
+    const presence = useLanyard(PUBLIC_DISCORD_ID);
+    let progress = $derived.by(() => {
+        if (!$presence?.listening_to_spotify) return 0;
 
-    $: if ($presence?.listening_to_spotify) {
         const total = $presence.spotify.timestamps.end! - $presence.spotify.timestamps.start;
-	    progress = 100 - (100 * ($presence.spotify.timestamps.end! - new Date().getTime())) / total;
-    }
+	    return 100 - (100 * ($presence.spotify.timestamps.end! - new Date().getTime())) / total;
+    });
 
 </script>
 
-<Card on:click={() => {
+<Card onclick={() => {
     window.open("https://open.spotify.com/track/" + $presence?.spotify.track_id)
 }} classes="w-full lg:aspect-[1] lg:flex-1 cursor-pointer">
     <div class="content py-5 lg:py-0 min-w-[70%] flex justify-center item-center gap-3 flex-col">
@@ -30,9 +28,9 @@
                 </div>
                 {:else}
                 <div class="music">
-                    <div />
-                    <div />
-                    <div />
+                    <div></div>
+                    <div></div>
+                    <div></div>
                     <img src="/spotify.svg" alt="spotify" />
                 </div>
                 <div class="flex justify-center text-left flex-col">
@@ -42,20 +40,30 @@
             {/if}
         </div>
         <div style={`display: ${$presence?.listening_to_spotify ? 'block': 'none'};`} class="h-[5px] w-full rounded-full bg-white/50">
-            <div style={`width: ${progress}%;`} class="h-[5px] seek bg-white rounded-full transition-all" />
+            <div style={`width: ${progress}%;`} class="h-[5px] seek bg-white rounded-full transition-all"></div>
         </div>
     </div>
 </Card>
 
 
-<style lang="postcss">
+<style>
 
     .music {
-        @apply relative w-20 aspect-[1] gap-1 flex justify-center items-center bg-[#2A2A49];
+        position: relative;
+        display: flex;
+        width: 5rem;
+        aspect-ratio: 1;
+        align-items: center;
+        justify-content: center;
+        gap: 0.25rem;
+        background: #2a2a49;
     }
 
     .music > *:not(img) {
-        @apply w-[5px] aspect-[1/5] bg-white rounded-full;
+        width: 5px;
+        aspect-ratio: 1 / 5;
+        border-radius: 9999px;
+        background: white;
     }
 
     .music > div:nth-child(1) {
@@ -71,7 +79,11 @@
     }
 
     .music > img {
-        @apply absolute top-0 right-0 translate-x-1/3 -translate-y-1/3 w-5;
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 1.25rem;
+        translate: 33.333333% -33.333333%;
     }
 
     @keyframes scaleUpDown {
@@ -87,12 +99,18 @@
     }
 
     .seek {
-        @apply relative;
+        position: relative;
     }
 
     .seek::before {
         content: '';
-        @apply absolute top-1/2 right-0 w-[10px] h-[10px] rounded-full bg-white;
+        position: absolute;
+        top: 50%;
+        right: 0;
+        width: 10px;
+        height: 10px;
+        border-radius: 9999px;
+        background: white;
         transform: translate(50%, -50%);
     }
 
