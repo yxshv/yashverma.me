@@ -11,7 +11,7 @@ Inspired by - https://www.pixelwrld.co/roman/home
 
 ## Running locally
 
-This application requires Node.js 22.12 or newer and pnpm 11.
+This application requires Node.js 24 and pnpm 9.
 
 ```
 git clone https://github.com/yxshv/yashverma.me
