@@ -14,12 +14,12 @@
                 <div class="p-0">
                     <div class="content rounded-[1.7rem] content-hs">
                         <div class="map relative">
-                            <img class="" alt="bhopal map" src="/map.png" />
+                            <img class="md:max-w-[26vw]" alt="bhopal map" src="/map.png" />
                             <div
                                 class="logo absolute rounded-full bg-bg p-[3px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
                             >
                                 <img
-                                    class="w-8 rounded-full"
+                                    class="w-10 rounded-full"
                                     alt="my logo"
                                     src="/logo.jpg"
                                 />
@@ -28,7 +28,7 @@
                     </div>
                 </div>
                 <div class="text-center">
-                    <h1 class="text-2xl ">Bhopal, Madhya Pradesh</h1>
+                    <h1 class="text-2xl ">IIT Indore</h1>
                     <p class="text-lg opacity-75">India</p>
                 </div>
             </Card>
