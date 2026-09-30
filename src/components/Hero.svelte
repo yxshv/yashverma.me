@@ -9,10 +9,29 @@
         link: string;
     }
 
-    const MAGNITUDE_ON_INCREASE = 1 / 2;
-    const DISTANCE_BW_CARDS = 350;
-    const PADDINGS = 200;
-    const PERSPECTIVE = 200;
+    // Orbit: cards revolve around an axis lying in the x-y plane, tilted
+    // AXIS_TILT from the vertical. Cards only translate, so they keep facing
+    // the viewer; the front of the orbit is the center of the screen.
+    const AXIS_TILT = (22 * Math.PI) / 180;
+    const ORBIT_RADIUS = 320;
+    const PERSPECTIVE = 1100;
+
+    // Scroll distance for one card to go from the front to the next card.
+    const PX_PER_CARD = 700;
+    // Where card 0 sits (in cards) before any scroll: partway round, coming in.
+    const LEAD = 0.6;
+    // 0..1, how strongly each card lingers at the front of the orbit.
+    const LINGER = 0.6;
+
+    // Spring that makes the orbit chase the scroll position.
+    const ORBIT_STIFFNESS = 60;
+    const ORBIT_DAMPING = 14;
+    // Slightly underdamped spring on each card's tilt, for a small settle.
+    const TUMBLE_STIFFNESS = 180;
+    const TUMBLE_DAMPING = 20;
+    // Degrees of tilt per px/s of card speed, and the cap.
+    const TUMBLE_GAIN = 0.006;
+    const TUMBLE_MAX = 15;
 
     const cards: Card[] = [
         {
@@ -43,92 +62,189 @@
         },
     ];
 
-    const height =
-        cards.length * ((DISTANCE_BW_CARDS * 1) / MAGNITUDE_ON_INCREASE) +
-        2 * MAGNITUDE_ON_INCREASE +
-        2 * DISTANCE_BW_CARDS +
-        PADDINGS;
+    // Scroll distance the last card stays alone at the front before the next
+    // section starts scrolling in over it.
+    const HOLD = 500;
+
+    // Scroll at which the last card reaches the front, plus the hold. The
+    // section is a viewport taller than this so nothing covers the card sooner.
+    const scrollLength = (cards.length - 1 + LEAD) * PX_PER_CARD + HOLD;
+
+    // Orbit basis in CSS space (y points down): U is in-plane, perpendicular
+    // to the axis; the other basis vector is +z, toward the viewer.
+    const U = { x: Math.cos(AXIS_TILT), y: Math.sin(AXIS_TILT) };
+
+    type Vec3 = { x: number; y: number; z: number };
 
     const nr: {
         cs?: NodeListOf<HTMLDivElement>;
-        lastScroll?: number;
-    } = {};
+        pos: number;
+        vel: number;
+        tilt: Vec3[];
+        tiltVel: Vec3[];
+        z: number[];
+        opacity: number[];
+        frame?: number;
+        lastTime?: number;
+        reducedMotion: boolean;
+    } = { pos: 0, vel: 0, tilt: [], tiltVel: [], z: [], opacity: [], reducedMotion: false };
 
     let wrapper = $state<HTMLDivElement>();
     let intro = $state<HTMLDivElement>();
 
+    const clamp = (v: number, lo: number, hi: number) => Math.min(hi, Math.max(lo, v));
+    const smoothstep = (a: number, b: number, v: number) => {
+        const t = clamp((v - a) / (b - a), 0, 1);
+        return t * t * (3 - 2 * t);
+    };
 
-    onMount(async () => {
+    // Soft staircase: slows the orbit whenever a card is at the front.
+    const linger = (c: number) => c - (LINGER * Math.sin(2 * Math.PI * c)) / (2 * Math.PI);
+    const lingerSlope = (c: number) => 1 - LINGER * Math.cos(2 * Math.PI * c);
+
+    function scrollTarget() {
+        return clamp(window.scrollY / PX_PER_CARD - LEAD, -1, cards.length - 1);
+    }
+
+    onMount(() => {
         const element = wrapper;
         if (!element) return;
 
         nr.cs = element.querySelectorAll(".card");
-
-        nr.cs.forEach((card, i) => {
-
-            const rect = card.getBoundingClientRect();
-
-            const rightLeft = i % 2 === 0 ? -1 : 1;
-
-            const translate3d = {
-                x: (rect.width * rightLeft * 3) / 4,
-                y: 0,
-                z: i * -DISTANCE_BW_CARDS - PADDINGS,
-            };
-
-            card.dataset.i = `${i}`;
-
-            card.style.setProperty("--x", `${translate3d.x}px`);
-            card.style.setProperty("--oZ", `${translate3d.z}px`);
-            element.style.setProperty("--z", `0px`);
-
-            card.style.zIndex = `${-1 * i}`;
-        });
+        nr.reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        nr.pos = scrollTarget();
+        nr.tilt = cards.map(() => ({ x: 0, y: 0, z: 0 }));
+        nr.tiltVel = cards.map(() => ({ x: 0, y: 0, z: 0 }));
 
         onScroll();
+        render(0);
         window.addEventListener("scroll", onScroll);
-        document.addEventListener("click", onClick);    
+        document.addEventListener("click", onClick);
+
+        return () => {
+            window.removeEventListener("scroll", onScroll);
+            document.removeEventListener("click", onClick);
+            if (nr.frame) cancelAnimationFrame(nr.frame);
+        };
     });
 
     function onClick(event: MouseEvent) {
-    
-        console.log("click")
-
-        if ((window.scrollY + window.innerHeight/2 ) >= height || window.scrollY < 100) {
+        if (window.scrollY >= scrollLength + window.innerHeight / 2 || window.scrollY < 100) {
             return;
         }
 
-        const mousePos = {
-            x: event.clientX,
-            y: event.clientY,
-        };
-
-        const element = wrapper;
-        if (!element) return
-
-        console.log("wrapper")
-
+        // Open the front-most visible card under the pointer.
+        let hit = -1;
         nr.cs?.forEach((card, index) => {
             const rect = card.getBoundingClientRect();
-            
-            const isInside = mousePos.x >= rect.left && mousePos.x <= rect.right && mousePos.y >= rect.top && mousePos.y <= rect.bottom;
-            const opacity = parseFloat(card.style.getPropertyValue("--opacity"));
-            
-            const z = parseFloat(element.style.getPropertyValue("--z").replace('px', '')) + parseFloat(card.style.getPropertyValue("--oZ").replace('px', ''));
+            const isInside =
+                event.clientX >= rect.left && event.clientX <= rect.right &&
+                event.clientY >= rect.top && event.clientY <= rect.bottom;
 
-            console.log((index+1) * PERSPECTIVE + PADDINGS, z, cards[index].title, index*PERSPECTIVE + PADDINGS >= z)
-
-            if (isInside && opacity > 0 && z <= ((index+1)*PERSPECTIVE + PADDINGS)) {
-                const link = cards[index].link;
-                window.open(link, "_blank");
+            if (isInside && nr.opacity[index] > 0.5 && (hit < 0 || nr.z[index] > nr.z[hit])) {
+                hit = index;
             }
-        })
+        });
 
+        if (hit >= 0) window.open(cards[hit].link, "_blank");
+    }
+
+    function startLoop() {
+        if (nr.frame) return;
+        nr.lastTime = undefined;
+        nr.frame = requestAnimationFrame(tick);
+    }
+
+    function tick(time: number) {
+        const dt = nr.lastTime === undefined ? 1 / 60 : Math.min((time - nr.lastTime) / 1000, 1 / 30);
+        nr.lastTime = time;
+
+        const settled = render(dt);
+        nr.frame = settled ? undefined : requestAnimationFrame(tick);
+    }
+
+    // Advances the springs by dt seconds and positions every card.
+    // Returns true once everything has come to rest.
+    function render(dt: number) {
+        const cardElements = nr.cs;
+        if (!cardElements) return true;
+
+        const target = scrollTarget();
+
+        if (nr.reducedMotion) {
+            nr.pos = target;
+            nr.vel = 0;
+        } else {
+            nr.vel += (ORBIT_STIFFNESS * (target - nr.pos) - ORBIT_DAMPING * nr.vel) * dt;
+            nr.pos += nr.vel * dt;
+        }
+
+        const orbit = linger(nr.pos);
+        const orbitVel = lingerSlope(nr.pos) * nr.vel;
+        let settled = Math.abs(target - nr.pos) < 1e-4 && Math.abs(nr.vel) < 1e-4;
+
+        cardElements.forEach((card, i) => {
+            // r = 0 at the front, ±1 half an orbit away (directly behind).
+            const r = orbit - i;
+            // phi decreases as r grows: cards enter top-left and leave bottom-right.
+            const phi = Math.PI / 2 - Math.PI * r;
+            const cos = Math.cos(phi);
+            const sin = Math.sin(phi);
+
+            const x = ORBIT_RADIUS * cos * U.x;
+            const y = ORBIT_RADIUS * cos * U.y;
+            const z = ORBIT_RADIUS * sin;
+
+            // Card velocity in px/s along the orbit tangent.
+            const angularVel = -Math.PI * orbitVel;
+            const vx = -ORBIT_RADIUS * sin * U.x * angularVel;
+            const vy = -ORBIT_RADIUS * sin * U.y * angularVel;
+            const vz = ORBIT_RADIUS * cos * angularVel;
+
+            // Lean into the direction of travel: the leading edge drags back,
+            // with a little bank for sideways motion.
+            let goal: Vec3 = { x: -vy + 0.6 * vz, y: vx, z: 0.3 * vx };
+            const speed = Math.hypot(goal.x, goal.y, goal.z);
+            const angle = Math.min(speed * TUMBLE_GAIN, TUMBLE_MAX);
+            goal = speed > 0
+                ? { x: (goal.x / speed) * angle, y: (goal.y / speed) * angle, z: (goal.z / speed) * angle }
+                : { x: 0, y: 0, z: 0 };
+
+            const tilt = nr.tilt[i];
+            const tiltVel = nr.tiltVel[i];
+            if (nr.reducedMotion) {
+                tilt.x = tilt.y = tilt.z = 0;
+            } else {
+                for (const k of ["x", "y", "z"] as const) {
+                    tiltVel[k] += (TUMBLE_STIFFNESS * (goal[k] - tilt[k]) - TUMBLE_DAMPING * tiltVel[k]) * dt;
+                    tilt[k] += tiltVel[k] * dt;
+                }
+            }
+
+            const tiltAngle = Math.hypot(tilt.x, tilt.y, tilt.z);
+            if (tiltAngle > 0.05 || Math.hypot(tiltVel.x, tiltVel.y, tiltVel.z) > 0.05) settled = false;
+
+            const rotate = tiltAngle > 0.01
+                ? ` rotate3d(${tilt.x / tiltAngle}, ${tilt.y / tiltAngle}, ${tilt.z / tiltAngle}, ${tiltAngle}deg)`
+                : "";
+
+            // Fade out as the card swings round behind the center.
+            const opacity = 1 - smoothstep(0.55, 0.95, Math.abs(r));
+
+            nr.z[i] = z;
+            nr.opacity[i] = opacity;
+
+            card.style.transform = `translate3d(${x}px, ${y}px, ${z}px)${rotate}`;
+            card.style.opacity = `${opacity}`;
+            card.style.visibility = opacity > 0 ? "visible" : "hidden";
+            card.style.zIndex = `${Math.round(z)}`;
+        });
+
+        return settled;
     }
 
     function onScroll() {
-        const cardElements = nr.cs;
-        if (!intro || !wrapper || !cardElements || cardElements.length < 2) return;
+        if (!intro) return;
 
         const scroll = window.scrollY;
 
@@ -152,50 +268,11 @@
         intro.style.setProperty("--sc", `${Math.abs(scale)}`);
         intro.style.setProperty("--op", `${Math.abs(opacity)}`);
 
-        nr.lastScroll = scroll;
-
-        const last = cardElements[cardElements.length - 1];
-        const lastSecond = cardElements[cardElements.length - 2];
-
-        wrapper.style.setProperty("--z", `${scroll * MAGNITUDE_ON_INCREASE}px`);
-
-        const lastZIncrease = parseFloat(
-            last.style.getPropertyValue("--oZ").replace("px", "")
-        );
-        const lastSecondZIncrease = parseFloat(
-            lastSecond.style.getPropertyValue("--oZ").replace("px", "")
-        );
-
-        if (lastZIncrease + scroll * MAGNITUDE_ON_INCREASE >= 0) {
-            last.style.setProperty("--z", `${-1 * lastZIncrease}px`);
-        } else {
-            last.style.removeProperty("--z");
-        }
-        if (lastSecondZIncrease + scroll * MAGNITUDE_ON_INCREASE >= 0) {
-            lastSecond.style.setProperty(
-                "--z",
-                `${-1 * lastSecondZIncrease}px`
-            );
-        } else {
-            lastSecond.style.removeProperty("--z");
-        }
-
-        cardElements.forEach((card) => {
-            const last = parseFloat(
-                card.style.getPropertyValue("--oZ").replace("px", "")
-            );
-
-            const z = last + scroll * MAGNITUDE_ON_INCREASE;
-
-            card.style.setProperty(
-                "--opacity",
-                `${z < -3/2 * DISTANCE_BW_CARDS ? 0 : 1}`
-            );
-        });
+        startLoop();
     }
 </script>
 
-<div id="tWrapper" class="z-[-1] hidden lg:block relative" style={`height: ${height}px;`}>
+<div id="tWrapper" class="z-[-1] hidden lg:block relative" style={`height: calc(${scrollLength}px + 100vh);`}>
     <div
         bind:this={intro}
         class="aboutme fixed flex justify-center gap-10 lg:justify-between flex-col items-center z-1 p-8 lg:p-16 top-0 w-screen h-full bg-[#131325]"
@@ -221,9 +298,8 @@
                 I am <span class="hero-underline">Yash!</span> A 17yr old
                 <br />software developer, proficient in
                 <span class="hero-underline">Typescript</span>,
-                <br /> <span class="hero-underline">Python</span>,
-                <span class="hero-underline">Golang</span>, and a little bit of
-                <span class="hero-underline">rust</span>
+                <br /> <span class="hero-underline">Python</span>, and
+                <span class="hero-underline">Golang</span>
             </p>
         </div>
         <span class="hidden lg:flex justify-center items-center gap-1">
@@ -282,9 +358,8 @@
                 I am <span class="hero-underline">Yash!</span> A 17yr old 
                 software developer, proficient in
                 <span class="hero-underline">Typescript</span>,
-                <span class="hero-underline">Python</span>,
-                <span class="hero-underline">Golang</span>, and a little bit of
-                <span class="hero-underline">rust</span>
+                <span class="hero-underline">Python</span>, and
+                <span class="hero-underline">Golang</span>
             </p>
         </div>
         <div class="z-[-1] h-full w-full absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 stars">
@@ -325,9 +400,7 @@
         border: 2px solid #474466;
 
         will-change: transform, opacity;
-        transform: translate3d(var(--x), 0, calc(var(--z) + var(--oZ)));
-        opacity: var(--opacity);
-        transition: opacity 200ms ease-in-out;
+        opacity: 0;
     }
 
     .card img {
